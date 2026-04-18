@@ -100,11 +100,7 @@ public class HexGrid : MonoBehaviour
 
         if (mergableHexes.Count > 2)
         {
-            if (mergableHexes.Count == 4)
-                mergableHexes.Remove(mergableHexes.Last());
-
             MergeObjectData newData = _draggingObject.Data.Next;
-
 
             if (newData != null)
             {
@@ -283,6 +279,9 @@ public class HexGrid : MonoBehaviour
                 todo.Enqueue(nbor);
             }
         }
+
+        if (result.Count == 4)
+            result.RemoveAt(3);
 
         return result;
     }
