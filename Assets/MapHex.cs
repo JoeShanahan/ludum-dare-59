@@ -15,6 +15,12 @@ public class MapHex : MonoBehaviour
     [SerializeField]
     private MergeObject _currentObject;
 
+    [SerializeField]
+    private Transform _coverTransform;
+
+    [SerializeField]
+    private Transform _extrasTransform;
+
     public MergeObject ObjectOnTop => _currentObject;
 
     public IEnumerable<MapHex> Neighbours => _neighbours;
@@ -44,25 +50,18 @@ public class MapHex : MonoBehaviour
         }
     }
 
-    public void SyncVisuals()
+    public void SetStartingState(int fog)
     {
-        // TODO check for duplicate positions
-        GetComponent<MeshRenderer>().sharedMaterial = _hexType.Material;
+        _fogCost = fog;
 
-        int row = Mathf.RoundToInt(transform.localPosition.z / 1.5f);
-        bool isOdd = Mathf.Abs(row) % 2 == 1;
-
-        if (isOdd)
+        if (fog == 0)
         {
-            int column = Mathf.RoundToInt((transform.localPosition.x + 0.5f) / 1.5f);
-            gameObject.name = $"Hex({column},{row})";
+            transform.localEulerAngles = new Vector3(-90, 0, 0);
+            Destroy(_coverTransform.gameObject);
         }
         else
         {
-            int column = Mathf.RoundToInt(transform.localPosition.x / 1.5f);
-            gameObject.name = $"Hex({column},{row})";
+            transform.localEulerAngles = new Vector3(90, 0, 0);
         }
-
-
     }
 }

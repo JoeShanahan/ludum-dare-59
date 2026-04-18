@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 939839ef013411b459b16b220774ad7b, type: 3}
-  m_Name: Water
+  m_Name: Sand
   m_EditorClassIdentifier: Assembly-CSharp::HexType
-  TileName: Water
-  TileCharacter: W
-  Material: {fileID: 2100000, guid: f543a3d16b707da4787f235de1ce7af0, type: 2}
-  Prefab: {fileID: 5062537806786646584, guid: 535fa47df33d728468b4982212a3d75e, type: 3}
+  TileName: Sand
+  TileCharacter: S
+  Material: {fileID: 2100000, guid: c77660c0cc611454d95735998f7ff063, type: 2}
+  Prefab: {fileID: 6190091456566569436, guid: c8938583b1568a743b45b741eaa6831a, type: 3}

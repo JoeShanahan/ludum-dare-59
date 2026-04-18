@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: Assembly-CSharp::HexType
   TileName: Grass
+  TileCharacter: G
   Material: {fileID: 2100000, guid: 99191d852cbd4a346aa6f2ea4b1de42d, type: 2}
+  Prefab: {fileID: 2375736482203227734, guid: d6b8f6d33b55ae242b07b40bff4d05f5, type: 3}

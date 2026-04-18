@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Mountain
   m_EditorClassIdentifier: Assembly-CSharp::HexType
   TileName: Mountain
+  TileCharacter: M
   Material: {fileID: 2100000, guid: 598f922b878f1114fa336143b6ef7e24, type: 2}
+  Prefab: {fileID: 2783696314798351416, guid: a510dd95d6c32524fa046c14ecbabcfe, type: 3}

@@ -17,6 +17,21 @@ public class HexGrid : MonoBehaviour
     [SerializeField]
     private Transform[] _blueHighlights;
 
+    [SerializeField]
+    private TextAsset _levelJson;
+
+    [SerializeField]
+    private Transform _hexParent;
+
+    [SerializeField]
+    private Transform _objParent;
+
+    [SerializeField]
+    private HexType[] _typeLookup;
+
+    private Vector3 _minPos = new Vector3(999, 0, 999);
+    private Vector3 _maxPos = new Vector3(-999, 0, -999);
+
     private InputSystem_Actions _actions;
 
     private MapHex _highlightHex;
@@ -26,16 +41,61 @@ public class HexGrid : MonoBehaviour
 
     private MergeObject _draggingObject;
 
+    public void ClampCamera(Transform followParent)
+    {
+        float x = Mathf.Clamp(followParent.position.x, _minPos.x, _maxPos.x);
+        float z = Mathf.Clamp(followParent.position.z, _minPos.z, _maxPos.z);
+        followParent.transform.position = new Vector3(x, 0, z);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _cam = Camera.main;
+        SpawnMap();
         InitMap();
+
+        _cam = Camera.main;
         _actions = new();
         _actions.Enable();
         _actions.UI.Click.performed += ClickPerformed;
 
         HideAllHighlights();
+    }
+
+    private void SpawnMap()
+    {
+        Dictionary<string, HexType> hexLookup = new();
+
+        foreach (HexType ht in _typeLookup)
+        {
+            hexLookup[ht.TileCharacter] = ht;
+        }
+
+        _minPos = new Vector3(999, 0, 999);
+        _maxPos = new Vector3(-999, 0, -999);
+
+        LevelJson lvl = JsonUtility.FromJson<LevelJson>(_levelJson.text);
+
+        foreach (TileInfo ti in lvl.GetTiles())
+        {
+            hexLookup.TryGetValue(ti.Material, out HexType ht);
+            GameObject newTile = Instantiate(ht.Prefab, _hexParent);
+            newTile.transform.localPosition = new Vector3(ti.Position.x * 2, 0, -ti.Position.y * 1.5f);
+
+            if (ti.Position.y % 2 == 1)
+            {
+                newTile.transform.localPosition += new Vector3(1, 0, 0);            
+            }
+
+            var mhex = newTile.GetComponent<MapHex>();
+            mhex.SetStartingState(ti.Fog);
+
+            _minPos.x = Mathf.Min(_minPos.x, newTile.transform.localPosition.x);
+            _minPos.z = Mathf.Min(_minPos.z, newTile.transform.localPosition.z);
+
+            _maxPos.x = Mathf.Max(_maxPos.x, newTile.transform.localPosition.x);
+            _maxPos.z = Mathf.Max(_maxPos.z, newTile.transform.localPosition.z);
+        }
     }
 
     private void ClickPerformed(CallbackContext ctx)
@@ -284,14 +344,5 @@ public class HexGrid : MonoBehaviour
             result.RemoveAt(3);
 
         return result;
-    }
-
-    [ContextMenu("SYNC ALL")]
-    public void SyncAllTiles()
-    {
-        foreach (MapHex hex in transform.GetComponentsInChildren<MapHex>())
-        {
-            hex.SyncVisuals();
-        }
     }
 }
