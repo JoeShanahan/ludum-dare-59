@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraMover : MonoBehaviour
 {
@@ -11,6 +12,17 @@ public class CameraMover : MonoBehaviour
     [SerializeField]
     private float _gravity = 4;
 
+    [SerializeField]
+    private Transform _closeTransform;
+
+    [SerializeField]
+    private Transform _farTransform;
+
+    private Camera _cam;
+
+    private float _currentZoom = 0.0f;
+    private float _targetZoom = 0.0f;
+
     private InputSystem_Actions _input;
     private Vector3 _velocity;
 
@@ -19,6 +31,17 @@ public class CameraMover : MonoBehaviour
     {
         _input = new();
         _input.Enable();    
+        _input.Player.Zoom.performed += ZoomPerformed;
+        _cam = Camera.main;
+    }
+
+    private void ZoomPerformed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.control.IsPressed())
+        {
+            _targetZoom += _input.Player.Zoom.ReadValue<float>() * 0.125f;
+            _targetZoom = Mathf.Clamp01(_targetZoom);
+        }
     }
 
     // Update is called once per frame
@@ -31,5 +54,8 @@ public class CameraMover : MonoBehaviour
 
         transform.position += _velocity;
         _grid.ClampCamera(transform);
+
+        _currentZoom = Mathf.Lerp(_currentZoom, _targetZoom, Time.deltaTime * 8);
+        _cam.transform.position = Vector3.Lerp(_farTransform.position, _closeTransform.position, _currentZoom);
     }
 }
