@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
-  m_Name: 03_Cube
+  m_Name: Data03_SD
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: Three Cubes
+  ObjectName: SD Card
   Level: 3
   Next: {fileID: 0}
   Family: {fileID: 11400000, guid: 5435fc4aa0ed781458a4093882d69557, type: 2}
-  Prefab: {fileID: 5046400690071393708, guid: 7dc588609e386ae419eda3c5910f71e5, type: 3}
+  Prefab: {fileID: 2139427474539676764, guid: 58d16e641665ed9438e71deae12cce71, type: 3}

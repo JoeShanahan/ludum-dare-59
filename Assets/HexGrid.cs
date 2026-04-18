@@ -29,6 +29,9 @@ public class HexGrid : MonoBehaviour
     [SerializeField]
     private HexType[] _typeLookup;
 
+    [SerializeField]
+    private MergeFamilyData[] _allFamilies;
+
     private Vector3 _minPos = new Vector3(999, 0, 999);
     private Vector3 _maxPos = new Vector3(-999, 0, -999);
 
@@ -65,11 +68,21 @@ public class HexGrid : MonoBehaviour
     private void SpawnMap()
     {
         Dictionary<string, HexType> hexLookup = new();
+        Dictionary<string, MergeObjectData> objLookup = new();
 
         foreach (HexType ht in _typeLookup)
         {
             hexLookup[ht.TileCharacter] = ht;
         }
+
+        foreach (MergeFamilyData fam in _allFamilies)
+        {
+            foreach (MergeObjectData mer in fam.Objects)
+            {
+                objLookup[mer.name] = mer;
+            }
+        }
+
 
         _minPos = new Vector3(999, 0, 999);
         _maxPos = new Vector3(-999, 0, -999);
@@ -95,6 +108,12 @@ public class HexGrid : MonoBehaviour
 
             _maxPos.x = Mathf.Max(_maxPos.x, newTile.transform.localPosition.x);
             _maxPos.z = Mathf.Max(_maxPos.z, newTile.transform.localPosition.z);
+
+            if (ti.ObjectOnTop != null && objLookup.TryGetValue(ti.ObjectOnTop, out MergeObjectData mo))
+            {
+                GameObject newMo = Instantiate(mo.Prefab, _objParent);
+                newMo.transform.localPosition = newTile.transform.localPosition;
+            }
         }
     }
 

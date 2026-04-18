@@ -28,8 +28,14 @@
         " . . . . . 0 0 0 0 . "
     ],
     "Objects": [
-        "10,7,01_Cube",
-        "10,8,01_Cube",
-        "9,8,01_Cube"
+        "10,7,Data01_Floppy",
+        "10,8,Data01_Floppy",
+        "9,8,Data01_Floppy",
+        "9,6,Data01_Floppy",
+        "9,5,Data01_Floppy",
+        "8,6,Data01_Floppy",
+        "8,7,Data01_Floppy",
+        "7,7,Data01_Floppy",
+        "7,8,Data01_Floppy"
     ]
 }

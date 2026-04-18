@@ -8,6 +8,7 @@ public class LevelJson
 {
     public string[] Hexes;
     public string[] Fog;
+    public string[] Objects;
 
     public IEnumerable<TileInfo> GetTiles()
     {
@@ -26,6 +27,16 @@ public class LevelJson
             }
         }
 
+        Dictionary<(int, int), string> objectPositions = new();
+
+        foreach (string objString in Objects)
+        {
+            string[] split = objString.Split(',');
+            int row = int.Parse(split[0]);
+            int column = int.Parse(split[1]);
+            objectPositions[(column, row)] = split[2];
+        }
+
         string abc = "0123456789ABCDEFGHIJKLMNOP";
 
         for (int row=0; row<Hexes.Length; row++)
@@ -41,11 +52,14 @@ public class LevelJson
                 if (hexChar == '.')
                     continue;
 
+                objectPositions.TryGetValue((column, row), out string objOnTop);
+
                 yield return new TileInfo
                 {
                     Position = new Vector2Int(column, row),
                     Fog = abc.IndexOf(fogChar),
-                    Material = hexChar.ToString()
+                    Material = hexChar.ToString(),
+                    ObjectOnTop = objOnTop,
                 };
             }
         }
@@ -58,4 +72,5 @@ public class TileInfo
     public Vector2Int Position;
     public int Fog;
     public string Material;
+    public string ObjectOnTop;
 }

@@ -2,7 +2,6 @@
 merge robots
 
 ### TODO
-* Spawn objects from file
 * Show tile info on hover
 * Right click to place mine
 * Right click to activate spawner

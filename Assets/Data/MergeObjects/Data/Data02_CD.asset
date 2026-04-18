@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
-  m_Name: 01_Cube
+  m_Name: Data02_CD
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: One Cube
-  Level: 1
-  Next: {fileID: 11400000, guid: e20141c88c4c4f64cbc0949c34ff18fe, type: 2}
+  ObjectName: Compact Disk
+  Level: 2
+  Next: {fileID: 11400000, guid: 3d60adf34979cd34d983db97b9c63845, type: 2}
   Family: {fileID: 11400000, guid: 5435fc4aa0ed781458a4093882d69557, type: 2}
-  Prefab: {fileID: 5046400690071393708, guid: 7dc588609e386ae419eda3c5910f71e5, type: 3}
+  Prefab: {fileID: 7816760500992614666, guid: 0903d5484508db449a450034a783d9d9, type: 3}
