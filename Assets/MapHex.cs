@@ -10,6 +10,16 @@ public class MapHex : MonoBehaviour
     [SerializeField]
     private int _fogCost;
 
+    [SerializeField]
+    private MergeObject _currentObject;
+
+    public MergeObject ObjectOnTop => _currentObject;
+
+    public void SetObject(MergeObject mergeObject)
+    {
+        _currentObject = mergeObject;
+    }
+
     public void SyncVisuals()
     {
         GetComponent<MeshRenderer>().sharedMaterial = _hexType.Material;

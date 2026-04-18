@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
+  m_Name: 02_Cube
+  m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
+  ObjectName: Two Cubes
+  Level: 2
+  Next: {fileID: 11400000, guid: 3d60adf34979cd34d983db97b9c63845, type: 2}
+  Family: {fileID: 11400000, guid: 5435fc4aa0ed781458a4093882d69557, type: 2}
+  Prefab: {fileID: 6174691072537226492, guid: 2f6d845cf0b7aaf4b9a73e6284a65569, type: 3}

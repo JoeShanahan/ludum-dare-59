@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0d4c99485a2a24ba80358df7d0f84e, type: 3}
+  m_Name: Family_Cubes
+  m_EditorClassIdentifier: Assembly-CSharp::MergeFamilyData
+  FamilyName: Debug Cubes
+  Objects:
+  - {fileID: 11400000, guid: c5ee343c50fa7d84795d6d6354b710b3, type: 2}
+  - {fileID: 11400000, guid: e20141c88c4c4f64cbc0949c34ff18fe, type: 2}
+  - {fileID: 11400000, guid: 3d60adf34979cd34d983db97b9c63845, type: 2}
