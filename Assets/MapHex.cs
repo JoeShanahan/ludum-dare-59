@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapHex : MonoBehaviour
@@ -15,13 +17,36 @@ public class MapHex : MonoBehaviour
 
     public MergeObject ObjectOnTop => _currentObject;
 
+    public IEnumerable<MapHex> Neighbours => _neighbours;
+
+    private List<MapHex> _neighbours;
+
     public void SetObject(MergeObject mergeObject)
     {
         _currentObject = mergeObject;
     }
 
+    public void FindNeighbours(IEnumerable<MapHex> hexList)
+    {
+        _neighbours = new();
+
+        foreach (MapHex other in hexList)
+        {
+            if (other == this)
+                continue;
+
+            float dist = Vector3.Distance(transform.position, other.transform.position);
+
+            if (dist < 2.1f)
+            {
+                _neighbours.Add(other);
+            }
+        }
+    }
+
     public void SyncVisuals()
     {
+        // TODO check for duplicate positions
         GetComponent<MeshRenderer>().sharedMaterial = _hexType.Material;
 
         int row = Mathf.RoundToInt(transform.localPosition.z / 1.5f);

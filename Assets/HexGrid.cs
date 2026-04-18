@@ -12,6 +12,9 @@ public class HexGrid : MonoBehaviour
     [SerializeField]
     private Transform _highlightObj;
 
+    [SerializeField]
+    private Transform[] _blueHighlights;
+
     private InputSystem_Actions _actions;
 
     private MapHex _highlightHex;
@@ -25,10 +28,12 @@ public class HexGrid : MonoBehaviour
     void Start()
     {
         _cam = Camera.main;
-        CollectObjects();
+        InitMap();
         _actions = new();
         _actions.Enable();
         _actions.UI.Click.performed += ClickPerformed;
+
+        HideAllHighlights();
     }
 
     private void ClickPerformed(CallbackContext ctx)
@@ -49,7 +54,8 @@ public class HexGrid : MonoBehaviour
             return;
 
         _draggingObject = _highlightHex.ObjectOnTop;
-        StopAllCoroutines();
+        _draggingObject?.KillCoroutines();
+        DetermineDropStatus();
     }
 
     private void ClickReleased()
@@ -57,9 +63,41 @@ public class HexGrid : MonoBehaviour
         if (_draggingObject == null)
             return;
 
-        StartCoroutine(MoveToHex(_draggingObject));
+        bool isFree = _overHex.ObjectOnTop == _draggingObject || _overHex.ObjectOnTop == null;
+
+        if (isFree)
+        {
+            _draggingObject.CurrentHex.SetObject(null);
+            _draggingObject.SetCurrentHex(null);
+
+            _draggingObject.SetCurrentHex(_overHex);
+            _overHex.SetObject(_draggingObject);
+        }
+        else
+        {
+            MapHex otherHex = _overHex;
+            MapHex thisHex = _draggingObject.CurrentHex;
+
+            if (otherHex != thisHex)
+            {
+                MergeObject otherObj = otherHex.ObjectOnTop;
+                MergeObject thisObj = _draggingObject;
+                
+                otherHex.SetObject(thisObj);
+                thisHex.SetObject(otherObj);
+
+                otherObj.SetCurrentHex(thisHex);
+                thisObj.SetCurrentHex(otherHex);
+                
+                otherObj.GoToCurrentHex();
+
+            }
+        }
+
+        _draggingObject.GoToCurrentHex();
         _draggingObject = null;
         OnSelectedHexChange(_overHex);
+        HideAllHighlights();
     }
 
     // Update is called once per frame
@@ -84,20 +122,8 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveToHex(MergeObject mergeObj)
-    {
-        Vector3 pos = mergeObj.CurrentHex.transform.position;
 
-        while (Vector3.Distance(pos, mergeObj.transform.position) > 0.01f)
-        {
-            mergeObj.transform.position = Vector3.Lerp(mergeObj.transform.position, pos, Time.deltaTime * 13);
-            yield return null;
-        }
-
-        mergeObj.transform.position = pos;
-    }
-
-    private void CollectObjects()
+    private void InitMap()
     {
         List<MapHex> allHexes = new();
 
@@ -105,6 +131,12 @@ public class HexGrid : MonoBehaviour
         {
             allHexes.Add(hex);
         }
+
+        foreach (MapHex hex in allHexes)
+        {
+            hex.FindNeighbours(allHexes);
+        }
+
 
         foreach (MergeObject obj in transform.GetComponentsInChildren<MergeObject>())
         {
@@ -131,6 +163,86 @@ public class HexGrid : MonoBehaviour
             _highlightHex = newHex;
             _highlightObj.position = _highlightHex.transform.position;
         }
+        else
+        {
+            DetermineDropStatus();
+        }
+    }
+
+    private void DetermineDropStatus()
+    {
+        if (_draggingObject == null)
+        {
+            HideAllHighlights();
+            return;
+        }
+
+        bool isFree = _overHex.ObjectOnTop == _draggingObject || _overHex.ObjectOnTop == null;
+
+        if (isFree)
+        {
+            List<MapHex> mergableHexes = GetMergeableHexes();
+
+            if (mergableHexes.Count > 2)
+            {
+                int top = Mathf.Min(mergableHexes.Count, _blueHighlights.Length);
+
+                for (int i=0; i<top; i++)
+                {
+                    _blueHighlights[i].transform.position = mergableHexes[i].transform.position;
+                    _blueHighlights[i].gameObject.SetActive(true);
+                }
+
+                for (int j=mergableHexes.Count; j<_blueHighlights.Length; j++)
+                {
+                    _blueHighlights[j].gameObject.SetActive(false);
+                }
+
+                return;
+            }
+        }
+
+        HideAllHighlights();
+        _blueHighlights[0].gameObject.SetActive(true);
+        _blueHighlights[0].transform.position = _overHex.transform.position;
+    }
+
+    private void HideAllHighlights()
+    {
+        foreach (Transform t in _blueHighlights)
+        {
+            t.gameObject.SetActive(false);
+        }
+    }
+
+    private List<MapHex> GetMergeableHexes()
+    {
+        var result = new List<MapHex>();
+        var todo = new Queue<MapHex>();
+
+        todo.Enqueue(_overHex);
+
+        while (todo.Count > 0 && result.Count < 5)
+        {
+            var current = todo.Dequeue();
+            result.Add(current);
+
+            foreach (MapHex nbor in current.Neighbours)
+            {            
+                if (result.Contains(nbor) || todo.Contains(nbor) || nbor.ObjectOnTop == null)
+                    continue;
+
+                if (nbor == _draggingObject.CurrentHex && _overHex != _highlightHex)
+                    continue;
+
+                if (nbor.ObjectOnTop.Data != _draggingObject.Data)
+                    continue;
+
+                todo.Enqueue(nbor);
+            }
+        }
+
+        return result;
     }
 
     [ContextMenu("SYNC ALL")]

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0d4c99485a2a24ba80358df7d0f84e, type: 3}
+  m_Name: Family_Spheres
+  m_EditorClassIdentifier: Assembly-CSharp::MergeFamilyData
+  FamilyName: Debug Spheres
+  Objects:
+  - {fileID: 11400000, guid: 3b457391c36c13e409b9f8a38217396d, type: 2}
+  - {fileID: 11400000, guid: ad5edfc3a4a325c45bc17614cf5a6328, type: 2}
+  - {fileID: 11400000, guid: 45ea76f0c50d4d94bab3e96dbcdea3b9, type: 2}
