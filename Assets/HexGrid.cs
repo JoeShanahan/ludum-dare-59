@@ -36,12 +36,9 @@ public class HexGrid : MonoBehaviour
     [ContextMenu("SYNC ALL")]
     public void SyncAllTiles()
     {
-        foreach (Transform t in transform)
+        foreach (MapHex hex in transform.GetComponentsInChildren<MapHex>())
         {
-            if(t.TryGetComponent(out MapHex hex))
-            {
-                hex.SyncVisuals();
-            }
+            hex.SyncVisuals();
         }
     }
 }
