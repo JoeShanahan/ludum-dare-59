@@ -2,15 +2,32 @@ using UnityEngine;
 
 public class MapHex : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public string TypeName => _hexType.TileName;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private HexType _hexType;
+
+    [SerializeField]
+    private int _fogCost;
+
+    public void SyncVisuals()
     {
-        
+        GetComponent<MeshRenderer>().sharedMaterial = _hexType.Material;
+
+        int row = Mathf.RoundToInt(transform.localPosition.z / 1.5f);
+        bool isOdd = Mathf.Abs(row) % 2 == 1;
+
+        if (isOdd)
+        {
+            int column = Mathf.RoundToInt((transform.localPosition.x + 0.5f) / 1.5f);
+            gameObject.name = $"Hex({column},{row})";
+        }
+        else
+        {
+            int column = Mathf.RoundToInt(transform.localPosition.x / 1.5f);
+            gameObject.name = $"Hex({column},{row})";
+        }
+
+
     }
 }

@@ -13,4 +13,16 @@ public class HexGrid : MonoBehaviour
     {
         
     }
+
+    [ContextMenu("SYNC ALL")]
+    public void SyncAllTiles()
+    {
+        foreach (Transform t in transform)
+        {
+            if(t.TryGetComponent(out MapHex hex))
+            {
+                hex.SyncVisuals();
+            }
+        }
+    }
 }
