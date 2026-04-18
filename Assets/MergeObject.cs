@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class MergeObject : MonoBehaviour
@@ -11,6 +12,8 @@ public class MergeObject : MonoBehaviour
 
     public MapHex CurrentHex => _currentHex;
 
+    private bool _isKilled;
+
     public void SetCurrentHex(MapHex hex)
     {
         _currentHex = hex;
@@ -21,14 +24,29 @@ public class MergeObject : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void GoToCurrentHex()
+    public void DoMerge(MapHex target, float time)
     {
-        StopAllCoroutines();
-        StartCoroutine(MoveToHex());
+        _isKilled = true;
+        KillCoroutines();
+        transform.DOMove(target.transform.position, time).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
     }
 
-    private IEnumerator MoveToHex()
+    public void GoToCurrentHex(float delay=0.0f)
     {
+        if (_isKilled)
+            return;
+
+        StopAllCoroutines();
+        StartCoroutine(MoveToHex(delay));
+    }
+
+    private IEnumerator MoveToHex(float delay)
+    {
+        if (delay > 0)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         Vector3 pos = CurrentHex.transform.position;
 
         while (Vector3.Distance(pos, transform.position) > 0.01f)

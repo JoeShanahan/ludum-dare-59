@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -94,6 +96,48 @@ public class HexGrid : MonoBehaviour
             }
         }
 
+        List<MapHex> mergableHexes = GetMergeableHexes();
+
+        if (mergableHexes.Count > 2)
+        {
+            if (mergableHexes.Count == 4)
+                mergableHexes.Remove(mergableHexes.Last());
+
+            MergeObjectData newData = _draggingObject.Data.Next;
+
+
+            if (newData != null)
+            {
+                foreach (MapHex hex in mergableHexes)
+                {
+                    MergeObject onTop = hex.ObjectOnTop;
+                    hex.SetObject(null);
+                    onTop.DoMerge(_overHex, 0.25f);
+                }
+
+                GameObject newObj = Instantiate(newData.Prefab, _draggingObject.transform.parent);
+                newObj.transform.position = _overHex.transform.position;
+                MergeObject newMergeObj = newObj.GetComponent<MergeObject>();
+                newMergeObj.SetCurrentHex(_overHex);
+                _overHex.SetObject(newMergeObj);
+                newObj.transform.localScale = Vector3.zero;
+                newObj.transform.DOScale(1, 0.25f).SetEase(Ease.OutExpo).SetDelay(0.2f);
+
+                if (mergableHexes.Count == 5)
+                {
+                    GameObject newObj2 = Instantiate(newData.Prefab, _draggingObject.transform.parent);
+                    newObj2.transform.position = _overHex.transform.position;
+                    MergeObject newMergeObj2 = newObj2.GetComponent<MergeObject>();
+                    newMergeObj2.SetCurrentHex(mergableHexes[1]);
+                    mergableHexes[1].SetObject(newMergeObj2);
+                    newMergeObj2.GoToCurrentHex(0.2f);
+
+                    newObj2.transform.localScale = Vector3.zero;
+                    newObj2.transform.DOScale(1, 0.25f).SetEase(Ease.OutExpo).SetDelay(0.2f);
+                }
+            }
+        }
+
         _draggingObject.GoToCurrentHex();
         _draggingObject = null;
         OnSelectedHexChange(_overHex);
@@ -177,29 +221,24 @@ public class HexGrid : MonoBehaviour
             return;
         }
 
-        bool isFree = _overHex.ObjectOnTop == _draggingObject || _overHex.ObjectOnTop == null;
+        List<MapHex> mergableHexes = GetMergeableHexes();
 
-        if (isFree)
+        if (mergableHexes.Count > 2)
         {
-            List<MapHex> mergableHexes = GetMergeableHexes();
+            int top = Mathf.Min(mergableHexes.Count, _blueHighlights.Length);
 
-            if (mergableHexes.Count > 2)
+            for (int i=0; i<top; i++)
             {
-                int top = Mathf.Min(mergableHexes.Count, _blueHighlights.Length);
-
-                for (int i=0; i<top; i++)
-                {
-                    _blueHighlights[i].transform.position = mergableHexes[i].transform.position;
-                    _blueHighlights[i].gameObject.SetActive(true);
-                }
-
-                for (int j=mergableHexes.Count; j<_blueHighlights.Length; j++)
-                {
-                    _blueHighlights[j].gameObject.SetActive(false);
-                }
-
-                return;
+                _blueHighlights[i].transform.position = mergableHexes[i].transform.position;
+                _blueHighlights[i].gameObject.SetActive(true);
             }
+
+            for (int j=mergableHexes.Count; j<_blueHighlights.Length; j++)
+            {
+                _blueHighlights[j].gameObject.SetActive(false);
+            }
+
+            return;
         }
 
         HideAllHighlights();
@@ -219,6 +258,9 @@ public class HexGrid : MonoBehaviour
     {
         var result = new List<MapHex>();
         var todo = new Queue<MapHex>();
+
+        if (_draggingObject.Data.Next == null)
+            return result;
 
         todo.Enqueue(_overHex);
 
