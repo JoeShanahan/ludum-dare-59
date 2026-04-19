@@ -211,6 +211,26 @@ public class HexGrid : MonoBehaviour
     {
         if (remainder == 0)
             return;
+
+        List<MapHex> potentialHexes = new(GetAllFogTiles());
+        potentialHexes.OrderBy(h => Vector3.Distance(h.transform.position, sourceHex.transform.position));
+        potentialHexes.Remove(sourceHex);
+
+        while (remainder > 0 && potentialHexes.Count > 0)
+        {
+            MapHex hex0 = potentialHexes[0];
+            potentialHexes.RemoveAt(0);
+
+            int toSend = Mathf.Min(hex0.CurrentFog, remainder);
+
+            for (int i=0; i<toSend; i++)
+            {
+                GameObject newObj = Instantiate(_dataParticlePrefab);
+                newObj.GetComponent<DataParticle>().Init(sourceHex, hex0);
+            }
+
+            remainder -= toSend;
+        }
     }
 
     private void ClickReleased()
@@ -226,6 +246,8 @@ public class HexGrid : MonoBehaviour
             if (_overHex.CanBeDefogged && _draggingObject.Data.CanDispelFog)
             {
                 int remainder = Mathf.Max(_draggingObject.Data.DataVals.DataValue - _overHex.CurrentFog, 0);
+                SendData(_overHex, remainder);
+
                 _overHex.RemoveFog(_draggingObject.Data.DataVals.DataValue);
                 _draggingObject.CurrentHex.SetObject(null);
                 _draggingObject.DoSpendData(_overHex, 0.25f);
