@@ -7,4 +7,5 @@ public class HexType : ScriptableObject
     public string TileCharacter;
     public Material Material;
     public GameObject Prefab;
+    public bool IsWater;
 }

@@ -40,9 +40,13 @@ public class InfoPanelUI : MonoBehaviour
         }
         else
         {
-            labels.Add("Reveal");
             values.Add("???");
-            values.Add($"{_grid.OverHex.CurrentFog} Data");
+
+            if (_grid.OverHex.CanBeDefogged)
+            {
+                labels.Add("Reveal");
+                values.Add($"{_grid.OverHex.CurrentFog} Data");
+            }
         }
         MergeObject mergeObj = _grid.DraggingObject;
         mergeObj ??= _grid.OverHex.ObjectOnTop;

@@ -49,6 +49,23 @@ public class HexGrid : MonoBehaviour
 
     public MapHex OverHex => _overHex;
     public MergeObject DraggingObject => _draggingObject;
+    private List<MapHex> _allHexes;
+
+    public IEnumerable<MapHex> GetAllFogTiles()
+    {
+        foreach (MapHex hex in _allHexes)
+        {
+            if (hex.CanBeDefogged)
+            {
+                yield return hex;
+            }
+        }
+    }
+
+    private void SingleTileFlipped()
+    {
+        RefreshFogStatus();
+    }
 
     public void ClampCamera(Transform followParent)
     {
@@ -61,7 +78,6 @@ public class HexGrid : MonoBehaviour
     void Start()
     {
         SpawnMap();
-        InitMap();
 
         _cam = Camera.main;
         _actions = new();
@@ -73,6 +89,7 @@ public class HexGrid : MonoBehaviour
 
     private void SpawnMap()
     {
+        _allHexes = new();
         Dictionary<string, HexType> hexLookup = new();
         Dictionary<string, MergeObjectData> objLookup = new();
 
@@ -108,6 +125,8 @@ public class HexGrid : MonoBehaviour
 
             var mhex = newTile.GetComponent<MapHex>();
             mhex.SetStartingState(ti.Fog);
+            mhex.OnTileFlip += SingleTileFlipped;
+            _allHexes.Add(mhex);
 
             _minPos.x = Mathf.Min(_minPos.x, newTile.transform.localPosition.x);
             _minPos.z = Mathf.Min(_minPos.z, newTile.transform.localPosition.z);
@@ -119,7 +138,43 @@ public class HexGrid : MonoBehaviour
             {
                 GameObject newMo = Instantiate(mo.Prefab, _objParent);
                 newMo.transform.localPosition = newTile.transform.localPosition;
+                MergeObject merObj = newMo.GetComponent<MergeObject>();
+                mhex.SetObject(merObj);
+                merObj.SetCurrentHex(mhex);
             }
+        }
+
+        foreach (MapHex hex in _allHexes)
+        {
+            hex.FindNeighbours(_allHexes);
+        }
+
+        foreach (MapHex hex in _allHexes)
+        {
+            hex.DetermineFogStatus();
+        }
+
+        foreach (MergeObject obj in transform.GetComponentsInChildren<MergeObject>())
+        {
+            foreach (MapHex hex in _allHexes)
+            {
+                float dist = Vector3.Distance(hex.transform.position, obj.transform.position);
+
+                if (dist < 0.5f)
+                {
+                    hex.SetObject(obj);
+                    obj.SetCurrentHex(hex);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void RefreshFogStatus()
+    {
+        foreach (MapHex hex in _allHexes)
+        {
+            hex.DetermineFogStatus();
         }
     }
 
@@ -152,8 +207,34 @@ public class HexGrid : MonoBehaviour
             return;
 
         bool isFree = _overHex.ObjectOnTop == _draggingObject || _overHex.ObjectOnTop == null;
+        bool isInvalid = _overHex.Data.IsWater;
 
-        if (isFree)
+        if (!isInvalid && _overHex.CurrentFog > 0)
+        {
+            if (_overHex.CanBeDefogged && _draggingObject.Data.CanDispelFog)
+            {
+                int remainder = Mathf.Max(_draggingObject.Data.DataVals.DataValue - _overHex.CurrentFog, 0);
+                _overHex.RemoveFog(_draggingObject.Data.DataVals.DataValue);
+                _draggingObject.CurrentHex.SetObject(null);
+                _draggingObject.DoSpendData(_overHex, 0.25f);
+                _draggingObject = null;
+                OnSelectedHexChange(_overHex);
+                HideAllHighlights();
+                return;
+            }
+
+            isInvalid = true;
+        }
+
+        if (isInvalid)
+        {
+            _draggingObject.GoToCurrentHex();
+            _draggingObject = null;
+            OnSelectedHexChange(_overHex);
+            HideAllHighlights();
+            return;
+        }
+        else if (isFree)
         {
             _draggingObject.CurrentHex.SetObject(null);
             _draggingObject.SetCurrentHex(null);
@@ -178,7 +259,6 @@ public class HexGrid : MonoBehaviour
                 thisObj.SetCurrentHex(otherHex);
                 
                 otherObj.GoToCurrentHex();
-
             }
         }
 
@@ -248,38 +328,6 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-
-    private void InitMap()
-    {
-        List<MapHex> allHexes = new();
-
-        foreach (MapHex hex in transform.GetComponentsInChildren<MapHex>())
-        {
-            allHexes.Add(hex);
-        }
-
-        foreach (MapHex hex in allHexes)
-        {
-            hex.FindNeighbours(allHexes);
-        }
-
-
-        foreach (MergeObject obj in transform.GetComponentsInChildren<MergeObject>())
-        {
-            foreach (MapHex hex in allHexes)
-            {
-                float dist = Vector3.Distance(hex.transform.position, obj.transform.position);
-
-                if (dist < 0.5f)
-                {
-                    hex.SetObject(obj);
-                    obj.SetCurrentHex(hex);
-                    break;
-                }
-            }
-        }
-    }
-
     private void OnSelectedHexChange(MapHex newHex)
     {
         _overHex = newHex;
@@ -345,6 +393,14 @@ public class HexGrid : MonoBehaviour
 
         if (_draggingObject.Data.Next == null)
             return result;
+
+        if (_overHex.CurrentFog > 0)
+            return result;
+
+        if (_overHex.Data.IsWater)
+        {
+            return result;
+        }
 
         todo.Enqueue(_overHex);
 

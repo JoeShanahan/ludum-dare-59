@@ -234,6 +234,12 @@ MonoBehaviour:
   _currentObject: {fileID: 0}
   _coverTransform: {fileID: 6462590932995057687}
   _extrasTransform: {fileID: 706756628747452230}
+  _lockedFogMats:
+  - {fileID: 2100000, guid: d160dbb2d59fb8246b170ad759b038f1, type: 2}
+  - {fileID: 2100000, guid: 18347cace9f07254e87d237aa70ce1f4, type: 2}
+  _unlockedFogMats:
+  - {fileID: 2100000, guid: 9c8fbe7fbaeda2641b26ff9ddc1c4222, type: 2}
+  - {fileID: 2100000, guid: a1a38af3688a1b84b91bb70f7e11fd8f, type: 2}
 --- !u!33 &8558269212806973083
 MeshFilter:
   m_ObjectHideFlags: 0

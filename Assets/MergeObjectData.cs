@@ -11,6 +11,7 @@ public class MergeObjectData : ScriptableObject
     public MergeObjectData Next;
     public MergeFamilyData Family;
     public GameObject Prefab;
+    public bool CanDispelFog => DataVals.IsEnabled && DataVals.DataValue > 0;
 
     [TextArea(1,5)]
     public string Description;

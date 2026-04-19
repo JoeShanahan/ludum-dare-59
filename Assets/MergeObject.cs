@@ -31,6 +31,14 @@ public class MergeObject : MonoBehaviour
         transform.DOMove(target.transform.position, time).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
     }
 
+    public void DoSpendData(MapHex target, float time)
+    {
+        _isKilled = true;
+        KillCoroutines();
+        transform.DOMove(target.transform.position, time).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
+        transform.DOScale(0, time).SetEase(Ease.OutSine);
+    }
+
     public void GoToCurrentHex(float delay=0.0f)
     {
         if (_isKilled)
