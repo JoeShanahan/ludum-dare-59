@@ -145,7 +145,7 @@ public class HexGrid : MonoBehaviour
                 GameObject newMo = Instantiate(mo.Prefab, _objParent);
                 newMo.transform.localPosition = newTile.transform.localPosition;
                 MergeObject merObj = newMo.GetComponent<MergeObject>();
-                mhex.SetObject(merObj);
+                mhex.SetObjectInit(merObj);
                 merObj.SetCurrentHex(mhex);
             }
         }
@@ -198,7 +198,7 @@ public class HexGrid : MonoBehaviour
 
     private void ClickPressed()
     {
-        if (_highlightHex == null || _highlightHex.ObjectOnTop == null)
+        if (_highlightHex == null || _highlightHex.ObjectOnTop == null || _highlightHex.CurrentFog > 0)
             return;
 
         _draggingObject = _highlightHex.ObjectOnTop;
@@ -452,6 +452,9 @@ public class HexGrid : MonoBehaviour
                     continue;
 
                 if (nbor.ObjectOnTop.Data != _draggingObject.Data)
+                    continue;
+
+                if (nbor.CurrentFog > 0)
                     continue;
 
                 todo.Enqueue(nbor);

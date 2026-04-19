@@ -47,6 +47,21 @@ public class MapHex : MonoBehaviour
         _currentObject = mergeObject;
     }
 
+    private Transform _ogParent;
+
+    public void SetObjectInit(MergeObject mergeObject)
+    {
+        _currentObject = mergeObject;
+
+        if (_fogCost > 0)
+        {
+            _ogParent = mergeObject.transform.parent;
+            transform.localEulerAngles = new Vector3(-90, 0, 0);
+            mergeObject.transform.SetParent(transform);
+            transform.localEulerAngles = new Vector3(90, 0, 0);
+        }
+    }
+
     public void FindNeighbours(IEnumerable<MapHex> hexList)
     {
         _neighbours = new();
@@ -80,6 +95,10 @@ public class MapHex : MonoBehaviour
             transform.DOLocalMoveY(transform.localPosition.y, 0.2f).SetDelay(0.2f).SetEase(Ease.InSine);
             transform.DOLocalRotate(new Vector3(-90, 0, 0), 0.45f).SetEase(Ease.OutSine).OnComplete(() =>
             {
+                if (_currentObject != null)
+                {
+                    _currentObject.transform.parent = _ogParent;
+                }
                 Destroy(_coverTransform.gameObject);
             });
 

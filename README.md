@@ -14,4 +14,3 @@ merge robots
 * Using power to get data
 * Move mouse to edge of screen to scroll
 * Right click drag to move map
-* flip the resource on top of the tile over too
