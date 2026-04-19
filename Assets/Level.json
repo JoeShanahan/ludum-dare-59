@@ -36,6 +36,27 @@
         "8,6,Data01_Floppy",
         "8,7,Data01_Floppy",
         "7,7,Data01_Floppy",
-        "7,8,Data01_Floppy"
+        "7,8,Data01_Floppy",
+        "5,2,Robo01_Ore",
+        "5,3,Robo01_Ore",
+        "5,4,Robo01_Ore",
+        "5,5,Robo01_Ore",
+        "5,6,Robo01_Ore",
+        "4,3,Robo01_Ore",
+        "4,4,Robo01_Ore",
+        "4,5,Robo01_Ore",
+        "4,6,Robo01_Ore",
+        "3,2,Robo03_Gear",
+        "3,3,Robo03_Gear",
+        "3,4,Robo03_Gear",
+        "3,5,Robo03_Gear",
+        "3,6,Robo03_Gear",
+        "6,2,Robo03_Gear",
+        "6,3,Robo03_Gear",
+        "6,4,Robo03_Gear",
+        "6,5,Robo03_Gear",
+        "6,6,Robo03_Gear",
+        "6,7,Robo03_Gear",
+        "6,8,Robo03_Gear"
     ]
 }

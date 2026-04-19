@@ -60,7 +60,7 @@ namespace MergeObjectSubData
         public IEnumerable<(string, string)> InfoForUI()
         {
             yield return ("Max Charge", $"{MaxCharge}");
-            yield return ("Discharge Rate", $"{DischargeRate} per second");
+            yield return ("Discharge", $"{DischargeRate} per sec");
         }
     }
 }

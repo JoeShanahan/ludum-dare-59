@@ -12,6 +12,9 @@ public class HexGrid : MonoBehaviour
     public event Action OnSelectionChange;
 
     [SerializeField]
+    private bool _forceAllFogOff;
+
+    [SerializeField]
     private LayerMask _hexLayer;
 
     [SerializeField]
@@ -34,6 +37,9 @@ public class HexGrid : MonoBehaviour
 
     [SerializeField]
     private MergeFamilyData[] _allFamilies;
+
+    [SerializeField]
+    private GameObject _dataParticlePrefab;
 
     private Vector3 _minPos = new Vector3(999, 0, 999);
     private Vector3 _maxPos = new Vector3(-999, 0, -999);
@@ -124,7 +130,7 @@ public class HexGrid : MonoBehaviour
             }
 
             var mhex = newTile.GetComponent<MapHex>();
-            mhex.SetStartingState(ti.Fog);
+            mhex.SetStartingState(_forceAllFogOff ? 0 : ti.Fog);
             mhex.OnTileFlip += SingleTileFlipped;
             _allHexes.Add(mhex);
 
@@ -199,6 +205,12 @@ public class HexGrid : MonoBehaviour
         _draggingObject?.KillCoroutines();
         DetermineDropStatus();
         OnSelectionChange?.Invoke();
+    }
+
+    private void SendData(MapHex sourceHex, int remainder)
+    {
+        if (remainder == 0)
+            return;
     }
 
     private void ClickReleased()

@@ -32,22 +32,6 @@ public class InfoPanelUI : MonoBehaviour
         List<string> labels = new();
         List<string> values = new();
 
-        labels.Add("Tile");
-
-        if (_grid.OverHex.CurrentFog <= 0)
-        {
-            values.Add(_grid.OverHex.Data.TileName);
-        }
-        else
-        {
-            values.Add("???");
-
-            if (_grid.OverHex.CanBeDefogged)
-            {
-                labels.Add("Reveal");
-                values.Add($"{_grid.OverHex.CurrentFog} Data");
-            }
-        }
         MergeObject mergeObj = _grid.DraggingObject;
         mergeObj ??= _grid.OverHex.ObjectOnTop;
 
@@ -71,6 +55,23 @@ public class InfoPanelUI : MonoBehaviour
             {
                 labels.Add(k);
                 values.Add(v);
+            }
+        }
+
+        labels.Add("Tile");
+
+        if (_grid.OverHex.CurrentFog <= 0)
+        {
+            values.Add(_grid.OverHex.Data.TileName);
+        }
+        else
+        {
+            values.Add("???");
+
+            if (_grid.OverHex.CanBeDefogged)
+            {
+                labels.Add("Reveal");
+                values.Add($"{_grid.OverHex.CurrentFog} Data");
             }
         }
 
