@@ -17,3 +17,11 @@ MonoBehaviour:
   Next: {fileID: 11400000, guid: e20141c88c4c4f64cbc0949c34ff18fe, type: 2}
   Family: {fileID: 11400000, guid: 5435fc4aa0ed781458a4093882d69557, type: 2}
   Prefab: {fileID: 5342470473846554980, guid: dd7e791af216b4d4fa8cb72beefb1a49, type: 3}
+  Description: Surprisingly rigid
+  DataVals:
+    IsEnabled: 1
+    DataValue: 1
+  RobotValues:
+    IsEnabled: 0
+    MaxCharge: 0
+    DischargeRate: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class HexGrid : MonoBehaviour
 {
+    public event Action OnSelectionChange;
+
     [SerializeField]
     private LayerMask _hexLayer;
 
@@ -43,6 +46,9 @@ public class HexGrid : MonoBehaviour
     private Camera _cam;
 
     private MergeObject _draggingObject;
+
+    public MapHex OverHex => _overHex;
+    public MergeObject DraggingObject => _draggingObject;
 
     public void ClampCamera(Transform followParent)
     {
@@ -137,6 +143,7 @@ public class HexGrid : MonoBehaviour
         _draggingObject = _highlightHex.ObjectOnTop;
         _draggingObject?.KillCoroutines();
         DetermineDropStatus();
+        OnSelectionChange?.Invoke();
     }
 
     private void ClickReleased()
@@ -286,6 +293,8 @@ public class HexGrid : MonoBehaviour
         {
             DetermineDropStatus();
         }
+
+        OnSelectionChange?.Invoke();
     }
 
     private void DetermineDropStatus()

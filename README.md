@@ -10,3 +10,7 @@ merge robots
 * Controls on screen
 * Robots breaking away from tiles
 * Robots recharging
+* Drag data onto question marks
+* Show data requirement when holding data
+* Only allow unlocking tiles that are next to 1+ non-water revealed tile
+* Can't place items on question marks

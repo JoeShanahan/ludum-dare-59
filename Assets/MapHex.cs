@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapHex : MonoBehaviour
 {
     public string TypeName => _hexType.TileName;
+    public HexType Data => _hexType;
 
     [SerializeField]
     private HexType _hexType;
@@ -26,6 +27,8 @@ public class MapHex : MonoBehaviour
     public IEnumerable<MapHex> Neighbours => _neighbours;
 
     private List<MapHex> _neighbours;
+
+    public int CurrentFog => _fogCost;
 
     public void SetObject(MergeObject mergeObject)
     {

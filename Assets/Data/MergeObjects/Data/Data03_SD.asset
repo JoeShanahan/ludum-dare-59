@@ -17,3 +17,11 @@ MonoBehaviour:
   Next: {fileID: 0}
   Family: {fileID: 11400000, guid: 5435fc4aa0ed781458a4093882d69557, type: 2}
   Prefab: {fileID: 2139427474539676764, guid: 58d16e641665ed9438e71deae12cce71, type: 3}
+  Description: So much data, such little size
+  DataVals:
+    IsEnabled: 1
+    DataValue: 20
+  RobotValues:
+    IsEnabled: 0
+    MaxCharge: 0
+    DischargeRate: 0

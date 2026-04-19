@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8511548fe4826154885453276020c46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _hexType: {fileID: 11400000, guid: c45da53322ef268488ed02d4d4b11c90, type: 2}
+  _hexType: {fileID: 11400000, guid: 7d3ab494b98b6d5488f0d8e7c072b74d, type: 2}
   _fogCost: 0
   _currentObject: {fileID: 0}
   _coverTransform: {fileID: 3790602055680241252}
