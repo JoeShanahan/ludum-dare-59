@@ -14,3 +14,4 @@ merge robots
 * Using power to get data
 * Move mouse to edge of screen to scroll
 * Right click drag to move map
+* Make highlight turn red if invalid

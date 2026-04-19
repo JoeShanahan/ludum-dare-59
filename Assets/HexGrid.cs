@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -188,7 +189,8 @@ public class HexGrid : MonoBehaviour
     {
         if (ctx.control.IsPressed())
         {
-            ClickPressed();
+            if (EventSystem.current.IsPointerOverGameObject() == false)
+                ClickPressed();
         }
         else
         {

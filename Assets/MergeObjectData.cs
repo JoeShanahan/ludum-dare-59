@@ -56,6 +56,7 @@ namespace MergeObjectSubData
         public bool IsEnabled;
         public int MaxCharge;
         public int DischargeRate;
+        public GameObject RobotPrefab;
 
         public IEnumerable<(string, string)> InfoForUI()
         {

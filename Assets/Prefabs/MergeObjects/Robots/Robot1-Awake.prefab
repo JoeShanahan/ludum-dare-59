@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1484770150325997531}
   - component: {fileID: 2586712847091757377}
+  - component: {fileID: 7508896899190045251}
   m_Layer: 0
   m_Name: Robot1-Awake
   m_TagString: Untagged
@@ -46,14 +47,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxRobot
   _mergeData: {fileID: 11400000, guid: 5267b9a4519f3f54a8569a13b3eb929b, type: 2}
-  _masterTransform: {fileID: 5216870509682582032}
   _mainBody: {fileID: 6982757599976068324}
   _arialA: {fileID: 6699132544225649424}
   _arialB: {fileID: 7186148919874971444}
   _leftWheel: {fileID: 3267435524906462197}
   _rightWheel: {fileID: 6307712346631266728}
-  _turnSpeed: 1
-  _moveSpeed: 1
+  _turnSpeed: 80
+  _moveSpeed: 0.2
+--- !u!135 &7508896899190045251
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673794866760718890}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.33, z: 0}
 --- !u!1 &1655043628542627458
 GameObject:
   m_ObjectHideFlags: 0

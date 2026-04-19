@@ -7,6 +7,8 @@ public class RobotBase : MonoBehaviour
 
     protected HexGrid _grid;
 
+    public MergeObjectData Data => _mergeData;
+
     public virtual void Start()
     {
         _grid = FindFirstObjectByType<HexGrid>();

@@ -25,3 +25,4 @@ MonoBehaviour:
     IsEnabled: 1
     MaxCharge: 20
     DischargeRate: 2
+    RobotPrefab: {fileID: 673794866760718890, guid: fa3e63781a608b74397c885c2bf04a66, type: 3}
