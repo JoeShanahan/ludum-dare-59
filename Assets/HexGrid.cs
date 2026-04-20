@@ -411,18 +411,21 @@ public class HexGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray worldRay = _cam.ScreenPointToRay(Mouse.current.position.value);
-        if (Physics.Raycast(worldRay, out RaycastHit hit, 999, _hexLayer))
+        if (EventSystem.current.IsPointerOverGameObject() == false)
         {
-            if (hit.collider.gameObject.TryGetComponent(out MapHex hex))
+            Ray worldRay = _cam.ScreenPointToRay(Mouse.current.position.value);
+            if (Physics.Raycast(worldRay, out RaycastHit hit, 999, _hexLayer))
             {
-                if (hex != _overHex)
+                if (hit.collider.gameObject.TryGetComponent(out MapHex hex))
                 {
-                    OnSelectedHexChange(hex);
+                    if (hex != _overHex)
+                    {
+                        OnSelectedHexChange(hex);
+                    }
                 }
             }
         }
-
+        
         if (_draggingObject != null)
         {
             Vector3 tgtPos = _overHex.transform.position + Vector3.up;

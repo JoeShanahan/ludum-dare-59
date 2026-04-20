@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class RobotContextMenu : W2C
 {
     [SerializeField] private Text _titleText;
-    [SerializeField] private Text _buttonText;
 
     private RobotBase _robot;
     [SerializeField]
@@ -18,8 +17,7 @@ public class RobotContextMenu : W2C
         _isAwake = false;
         _obj = obj;
         _data = obj.Data;
-        _titleText.text = "Robot (asleep)";
-        _buttonText.text = "WAKE UP";
+        _titleText.text = obj.Data.ObjectName;
         SetPosition(obj.transform);
     }
 
@@ -29,7 +27,6 @@ public class RobotContextMenu : W2C
         _robot = robot;
         _data = robot.Data;
         _titleText.text = "Robot (awake)";
-        _buttonText.text = "SLEEP";
         SetPosition(robot.transform);
     }
 

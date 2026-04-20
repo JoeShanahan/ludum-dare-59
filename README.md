@@ -2,7 +2,6 @@
 merge robots
 
 ### TODO
-* Placing solar panels
 * Plants merge line
 
 ### Central Mechanics
@@ -10,12 +9,13 @@ merge robots
 * Robots Recharging
 * Robots going back to sleep
 * Using power to get data
+* The win condition! The radio tower!
 
 ### Charm
 * Robots animating
+* Other robot models
 
 ### Quality of Life
-* Make highlight turn red if invalid
 * Controls on screen
 * Move mouse to edge of screen to scroll
 * Right click drag to move map
