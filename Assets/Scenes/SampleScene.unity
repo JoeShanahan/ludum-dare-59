@@ -680,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d869c6e03c82c3e4c89cc0581eb84488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HexGrid
-  _forceAllFogOff: 0
+  _forceAllFogOff: 1
   _hexLayer:
     serializedVersion: 2
     m_Bits: 64
