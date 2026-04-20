@@ -70,6 +70,7 @@ public class RobotContextMenu : W2C
         GameObject newObj = GameObject.Instantiate(_sleepingObj.Data.RobotValues.RobotPrefab, _sleepingObj.transform.parent);
         _awakeObj = newObj.GetComponent<RobotBase>();
         _awakeObj.WakeUp();
+        _awakeObj.SetPower(_sleepingObj.PowerStored);
         newObj.transform.position = _sleepingObj.transform.position;
         Destroy(_sleepingObj.gameObject);
         _sleepingObj = null;
@@ -90,6 +91,8 @@ public class RobotContextMenu : W2C
         {
             return;
         }
+
+
     }
 
     public void ButtonPressGo()
@@ -146,13 +149,20 @@ public class RobotContextMenu : W2C
     // Update is called once per frame
     void Update()
     {
+        float chargePercent = 0;
+
         if (_awakeObj != null)
         {
             _titleText.text = _awakeObj.GetStatus();
+            chargePercent = _awakeObj.ChargePercent / 100f;
+
         }
         else if (_sleepingObj != null)
         {
             _titleText.text = $"{_sleepingObj.Data.ObjectName} (asleep)";
+            chargePercent = (float) _sleepingObj.PowerStored / _sleepingObj.Data.RobotValues.MaxCharge;
         }
+
+        _chargeBar.localScale = new Vector3(chargePercent, 1, 1);
     }
 }

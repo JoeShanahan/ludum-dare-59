@@ -4,6 +4,11 @@ using UnityEngine;
 public abstract class RobotTask
 {
     public virtual string Status => "?";
+
+    public virtual void CleanUp(RobotBase robo)
+    {
+        
+    }
 }
 
 public class FindSleepSpotTask : RobotTask
@@ -33,6 +38,14 @@ public class RechargeTask : RobotTask
 
             return $"Recharging at {Station.Data.ObjectName}";
         }   
+    }
+
+    public override void CleanUp(RobotBase robo)
+    {
+        if (Station != null && Station.Reservation == robo)
+        {
+            Station.Reservation = null;
+        }
     }
 }
 
@@ -70,6 +83,11 @@ public class RobotBase : MonoBehaviour
 
     [SerializeField] protected float _turnSpeed = 1;
     [SerializeField] protected float _moveSpeed = 1;
+
+    public void SetPower(int startingPower)
+    {
+        Power = startingPower;
+    }
 
     public string GetStatus()
     {
@@ -125,6 +143,7 @@ public class RobotBase : MonoBehaviour
     
         if (doingWhatTold)
         {
+            _currentTask?.CleanUp(this);
             _currentTask = _directedTask;
         }
     }
@@ -189,6 +208,7 @@ public class RobotBase : MonoBehaviour
 
         if (result == ChargeResult.MapFull || result == ChargeResult.Empty)
         {
+            _currentTask?.CleanUp(this);
             _directedTask = null;
             _currentTask = null;
         }
@@ -264,6 +284,7 @@ public class RobotBase : MonoBehaviour
         if (_currentTask is RechargeTask)
             return;
 
+        _currentTask?.CleanUp(this);
         _currentTask = new RechargeTask();
     }
 

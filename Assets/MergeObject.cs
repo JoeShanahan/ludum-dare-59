@@ -9,6 +9,16 @@ public class MergeObject : HexObject
 
     public RobotBase Reservation;
 
+    public int PowerStored;
+
+    public void OnNewlyCreated()
+    {
+        if (Data.RobotValues.IsEnabled)
+        {
+            PowerStored = Data.RobotValues.MaxCharge;
+        }
+    }
+
     public void DoMerge(MapHex target, float time)
     {
         _isKilled = true;

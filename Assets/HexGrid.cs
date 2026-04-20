@@ -390,6 +390,7 @@ public class HexGrid : MonoBehaviour
                 GameObject newObj = Instantiate(newData.Prefab, _draggingObject.transform.parent);
                 newObj.transform.position = _overHex.transform.position;
                 MergeObject newMergeObj = newObj.GetComponent<MergeObject>();
+                newMergeObj.OnNewlyCreated();
                 newMergeObj.SetCurrentHex(_overHex);
                 _overHex.SetObject(newMergeObj);
                 newObj.transform.localScale = Vector3.zero;
@@ -400,6 +401,8 @@ public class HexGrid : MonoBehaviour
                     GameObject newObj2 = Instantiate(newData.Prefab, _draggingObject.transform.parent);
                     newObj2.transform.position = _overHex.transform.position;
                     MergeObject newMergeObj2 = newObj2.GetComponent<MergeObject>();
+                    newMergeObj2.OnNewlyCreated();
+
                     newMergeObj2.SetCurrentHex(mergableHexes[1]);
                     mergableHexes[1].SetObject(newMergeObj2);
                     newMergeObj2.GoToCurrentHex(0.2f);

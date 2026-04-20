@@ -12,8 +12,6 @@ merge robots
 * The void tile
 * Destroy provider when out of supplies
 * Animation showing putting power into task
-* Should start with power full after merge
-* Cache the power in the merge object
 
 ### Quality of Life
 * Controls on screen
