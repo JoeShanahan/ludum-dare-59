@@ -9,6 +9,8 @@ public class RobotBase : MonoBehaviour
 
     public MergeObjectData Data => _mergeData;
 
+    public float ChargePercent => 66f;
+
     public virtual void Start()
     {
         _grid = FindFirstObjectByType<HexGrid>();

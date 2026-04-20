@@ -5,46 +5,81 @@ public class RobotContextMenu : W2C
 {
     [SerializeField] private Text _titleText;
 
-    private RobotBase _robot;
-    [SerializeField]
-    private MergeObject _obj;
-    private MergeObjectData _data;
+    private RobotBase _awakeObj;
 
-    private bool _isAwake;
+    [SerializeField]
+    private MergeObject _sleepingObj;
+
+    [SerializeField]
+    private Text _statusText;
+
+    [SerializeField]
+    private RectTransform _chargeBar;
+
+    [SerializeField]
+    private RectTransform[] _asleepButtons;
+
+    [SerializeField]
+    private RectTransform[] _awakeButtons;
 
     public void InitAsleep(MergeObject obj)
     {
-        _isAwake = false;
-        _obj = obj;
-        _data = obj.Data;
+        _sleepingObj = obj;
         _titleText.text = obj.Data.ObjectName;
         SetPosition(obj.transform);
+        
+        foreach (RectTransform t in _awakeButtons)
+            t.gameObject.SetActive(false);
+        
+        foreach (RectTransform t in _asleepButtons)
+            t.gameObject.SetActive(true);
     }
 
     public void InitAwake(RobotBase robot)
     {
-        _isAwake = false;
-        _robot = robot;
-        _data = robot.Data;
-        _titleText.text = "Robot (awake)";
+        _awakeObj = robot;
         SetPosition(robot.transform);
+
+        foreach (RectTransform t in _awakeButtons)
+            t.gameObject.SetActive(true);
+        
+        foreach (RectTransform t in _asleepButtons)
+            t.gameObject.SetActive(false);
     }
 
-    public void ButtonPress()
+    public void ButtonPressPower()
     {
-        if (_isAwake)
+        if (_sleepingObj == null)
         {
-            
-        }
-        else
-        {
-            _obj.CurrentHex.SetObject(null);
-            GameObject newObj = GameObject.Instantiate(_obj.Data.RobotValues.RobotPrefab, _obj.transform.parent);
-            newObj.GetComponent<RobotBase>().WakeUp();
-            newObj.transform.position = _obj.transform.position;
-            Destroy(_obj.gameObject);
+            return;
         }
 
+        _sleepingObj.CurrentHex.SetObject(null);
+        GameObject newObj = GameObject.Instantiate(_sleepingObj.Data.RobotValues.RobotPrefab, _sleepingObj.transform.parent);
+        _awakeObj = newObj.GetComponent<RobotBase>();
+        _awakeObj.WakeUp();
+        newObj.transform.position = _sleepingObj.transform.position;
+        Destroy(_sleepingObj.gameObject);
+        _sleepingObj = null;
+        SetPosition(_awakeObj.transform);
+
+        foreach (RectTransform t in _awakeButtons)
+            t.gameObject.SetActive(true);
+        
+        foreach (RectTransform t in _asleepButtons)
+            t.gameObject.SetActive(false);
+    }
+
+    public void ButtonPressSleep()
+    {
+        if (_awakeObj == null)
+        {
+            return;
+        }
+    }
+
+    public void ButtonPressClose()
+    {
         Destroy(gameObject);
     }
 
@@ -57,6 +92,13 @@ public class RobotContextMenu : W2C
     // Update is called once per frame
     void Update()
     {
-        
+        if (_awakeObj != null)
+        {
+            _titleText.text = $"{_awakeObj.Data.ObjectName} ({Mathf.RoundToInt(_awakeObj.ChargePercent)}%)";
+        }
+        else if (_sleepingObj != null)
+        {
+            _titleText.text = $"{_sleepingObj.Data.ObjectName} (asleep)";
+        }
     }
 }

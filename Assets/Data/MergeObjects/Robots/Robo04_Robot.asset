@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
   m_Name: Robo04_Robot
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: Boxbot (asleep)
+  ObjectName: Boxbot
   Level: 4
   Next: {fileID: 0}
   Family: {fileID: 11400000, guid: b5b0a393c059efc4db8f5c309f16154a, type: 2}
