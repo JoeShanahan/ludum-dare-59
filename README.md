@@ -19,3 +19,4 @@ merge robots
 * Controls on screen
 * Move mouse to edge of screen to scroll
 * Right click drag to move map
+* Show explanation of producers

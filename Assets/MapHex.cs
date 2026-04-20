@@ -49,15 +49,15 @@ public class MapHex : MonoBehaviour
 
     private Transform _ogParent;
 
-    public void SetObjectInit(MergeObject mergeObject)
+    public void SetObjectInit(HexObject hexObj)
     {
-        _currentObject = mergeObject;
+        _currentObject = hexObj;
 
         if (_fogCost > 0)
         {
-            _ogParent = mergeObject.transform.parent;
+            _ogParent = hexObj.transform.parent;
             transform.localEulerAngles = new Vector3(-90, 0, 0);
-            mergeObject.transform.SetParent(transform);
+            hexObj.transform.SetParent(transform);
             transform.localEulerAngles = new Vector3(90, 0, 0);
         }
     }

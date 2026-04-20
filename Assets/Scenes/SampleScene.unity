@@ -530,17 +530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d869c6e03c82c3e4c89cc0581eb84488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HexGrid
-  _forceAllFogOff: 1
+  _forceAllFogOff: 0
   _hexLayer:
     serializedVersion: 2
     m_Bits: 64
   _highlightObj: {fileID: 3406658600124083371}
-  _blueHighlights:
-  - {fileID: 1163248442}
-  - {fileID: 1183505087}
-  - {fileID: 1816767735}
-  - {fileID: 1009077332}
-  - {fileID: 594806028}
   _levelJson: {fileID: 4900000, guid: 38ebb50dfeb3a0c42953a29ac6aa90a7, type: 3}
   _hexParent: {fileID: 1710087593}
   _objParent: {fileID: 1716110270}
@@ -553,7 +547,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5435fc4aa0ed781458a4093882d69557, type: 2}
   - {fileID: 11400000, guid: 36ee4c6dfe0b41f4697d7975e1e396c1, type: 2}
   - {fileID: 11400000, guid: b5b0a393c059efc4db8f5c309f16154a, type: 2}
+  _allProducers:
+  - {fileID: 11400000, guid: d74ab97b1908f8e43b34892b9f98f5b7, type: 2}
+  - {fileID: 11400000, guid: ab22013c077d69047a0acea70b284e56, type: 2}
   _dataParticlePrefab: {fileID: 3886854410479424579, guid: 6c0347bce4a5af145b1d95bea08ecfa3, type: 3}
+  _highlightHexes:
+  - {fileID: 1163248443}
+  - {fileID: 1183505088}
+  - {fileID: 1816767736}
+  - {fileID: 1009077333}
+  - {fileID: 594806029}
+  _validMats:
+  - {fileID: 2100000, guid: 78f1fd9f92b93da4984a9269aad9af84, type: 2}
+  - {fileID: 2100000, guid: f91964f7a056cf44aa2b055493ec2e73, type: 2}
+  _mergeMats:
+  - {fileID: 2100000, guid: 5a5499d89da3cbf47954fbc6a74ced7b, type: 2}
+  - {fileID: 2100000, guid: a44cbfb2406649c43ad39d5a5fbc4b12, type: 2}
+  _invalidMats:
+  - {fileID: 2100000, guid: 9deacd31cf5bcaa459b4f952bcfa07da, type: 2}
+  - {fileID: 2100000, guid: 44bc3c32ab1d0ff4a8f564d332280af7, type: 2}
 --- !u!1 &493882071
 GameObject:
   m_ObjectHideFlags: 0

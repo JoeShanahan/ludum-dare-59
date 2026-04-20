@@ -22,9 +22,6 @@ public class HexGrid : MonoBehaviour
     private Transform _highlightObj;
 
     [SerializeField]
-    private Transform[] _blueHighlights;
-
-    [SerializeField]
     private TextAsset _levelJson;
 
     [SerializeField]
@@ -38,9 +35,27 @@ public class HexGrid : MonoBehaviour
 
     [SerializeField]
     private MergeFamilyData[] _allFamilies;
+    
+    [SerializeField]
+    private ProducerData[] _allProducers;
 
     [SerializeField]
     private GameObject _dataParticlePrefab;
+
+
+    [Header("The highlights")]
+    [SerializeField]
+    private MeshRenderer[] _highlightHexes;
+
+    [SerializeField]
+    private Material[] _validMats;
+
+    [SerializeField]
+    private Material[] _mergeMats;
+
+    [SerializeField]
+    private Material[] _invalidMats;
+
 
     private Vector3 _minPos = new Vector3(999, 0, 999);
     private Vector3 _maxPos = new Vector3(-999, 0, -999);
@@ -94,11 +109,23 @@ public class HexGrid : MonoBehaviour
         HideAllHighlights();
     }
 
+    private void SetHexColors(Material[] mats)
+    {
+        foreach (MeshRenderer mr in _highlightHexes)
+        {
+            if (mr.sharedMaterials[0] == mats[0])
+                continue;
+
+            mr.sharedMaterials = mats;
+        }
+    }
+
     private void SpawnMap()
     {
         _allHexes = new();
         Dictionary<string, HexType> hexLookup = new();
         Dictionary<string, MergeObjectData> objLookup = new();
+        Dictionary<string, ProducerData> prodLookup = new();
 
         foreach (HexType ht in _typeLookup)
         {
@@ -112,6 +139,12 @@ public class HexGrid : MonoBehaviour
                 objLookup[mer.name] = mer;
             }
         }
+
+        foreach (ProducerData d in _allProducers)
+        {
+            prodLookup[d.name] = d;
+        }
+
 
 
         _minPos = new Vector3(999, 0, 999);
@@ -148,6 +181,14 @@ public class HexGrid : MonoBehaviour
                 MergeObject merObj = newMo.GetComponent<MergeObject>();
                 mhex.SetObjectInit(merObj);
                 merObj.SetCurrentHex(mhex);
+            }
+            else if (ti.ObjectOnTop != null && prodLookup.TryGetValue(ti.ObjectOnTop, out ProducerData pd))
+            {
+                GameObject newMo = Instantiate(pd.Prefab, _objParent);
+                newMo.transform.localPosition = newTile.transform.localPosition;
+                ProducerObject prodObj = newMo.GetComponent<ProducerObject>();
+                mhex.SetObjectInit(prodObj);
+                prodObj.SetCurrentHex(mhex);
             }
         }
 
@@ -201,6 +242,9 @@ public class HexGrid : MonoBehaviour
     private void ClickPressed()
     {
         if (_highlightHex == null || _highlightHex.ObjectOnTop == null || _highlightHex.CurrentFog > 0)
+            return;
+
+        if (_highlightHex.ObjectOnTop.CanBeMoved == false)
             return;
 
         _draggingObject = _highlightHex.ObjectOnTop;
@@ -263,6 +307,9 @@ public class HexGrid : MonoBehaviour
 
             isInvalid = true;
         }
+
+        if (_overHex.ObjectOnTop != null && _overHex.ObjectOnTop.CanBeMoved == false)
+            isInvalid = true;
 
         if (isInvalid)
         {
@@ -391,36 +438,38 @@ public class HexGrid : MonoBehaviour
             return;
         }
 
+        SetHexColors(_validMats);
         List<MapHex> mergableHexes = GetMergeableHexes();
 
         if (mergableHexes.Count > 2)
         {
-            int top = Mathf.Min(mergableHexes.Count, _blueHighlights.Length);
+            int top = Mathf.Min(mergableHexes.Count, _highlightHexes.Length);
 
             for (int i=0; i<top; i++)
             {
-                _blueHighlights[i].transform.position = mergableHexes[i].transform.position;
-                _blueHighlights[i].gameObject.SetActive(true);
+                _highlightHexes[i].transform.position = mergableHexes[i].transform.position;
+                _highlightHexes[i].gameObject.SetActive(true);
             }
 
-            for (int j=mergableHexes.Count; j<_blueHighlights.Length; j++)
+            for (int j=mergableHexes.Count; j<_highlightHexes.Length; j++)
             {
-                _blueHighlights[j].gameObject.SetActive(false);
+                _highlightHexes[j].gameObject.SetActive(false);
             }
 
+            SetHexColors(_mergeMats);
             return;
         }
 
         HideAllHighlights();
-        _blueHighlights[0].gameObject.SetActive(true);
-        _blueHighlights[0].transform.position = _overHex.transform.position;
+        _highlightHexes[0].gameObject.SetActive(true);
+        _highlightHexes[0].transform.position = _overHex.transform.position;
     }
 
     private void HideAllHighlights()
     {
-        foreach (Transform t in _blueHighlights)
+        foreach (MeshRenderer mr in _highlightHexes)
         {
-            t.gameObject.SetActive(false);
+            mr.gameObject.SetActive(false);
         }
     }
 
@@ -428,22 +477,34 @@ public class HexGrid : MonoBehaviour
     {
         var result = new List<MapHex>();
         var todo = new Queue<MapHex>();
-
         var dragObj = _draggingObject as MergeObject;
+
+        if (_overHex.CurrentFog > 0)
+        {
+            if (dragObj != null && dragObj.Data.DataVals.IsEnabled == false)
+                SetHexColors(_invalidMats);
+                
+            return result;
+        }
+
+        if (_overHex.ObjectOnTop != null && _overHex.ObjectOnTop.CanBeMoved == false)
+        {
+            SetHexColors(_invalidMats);
+            return result;
+        }
+
 
         if (dragObj == null)
             return result;
 
-        if (dragObj.Data.Next == null)
-            return result;
-
-        if (_overHex.CurrentFog > 0)
-            return result;
-
         if (_overHex.Data.IsWater)
         {
+            SetHexColors(_invalidMats);
             return result;
         }
+
+        if (dragObj.Data.Next == null)
+            return result;
 
         todo.Enqueue(_overHex);
 

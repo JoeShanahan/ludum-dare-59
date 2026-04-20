@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8445787728818807317}
+  - component: {fileID: 5713795708633872367}
   m_Layer: 0
   m_Name: Pickaxe
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   - {fileID: 6896519849483523114}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5713795708633872367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046578131916089546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56650391465303d4d98e108bda840361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProducerObject
+  _currentHex: {fileID: 0}
+  _data: {fileID: 11400000, guid: d74ab97b1908f8e43b34892b9f98f5b7, type: 2}
 --- !u!1 &4281558401691369393
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,13 +73,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4281558401691369393}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.54335976, y: -0.014790284, z: 0.43841213, w: 0.7157766}
-  m_LocalPosition: {x: -0.023843765, y: 0.7979671, z: 0.053984642}
+  m_LocalRotation: {x: -0.5169869, y: -0.16787845, z: 0.21804738, w: 0.8105534}
+  m_LocalPosition: {x: -0.026286602, y: 0.79918826, z: 0.04872608}
   m_LocalScale: {x: 0.5, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8445787728818807317}
-  m_LocalEulerAnglesHint: {x: 229.896, y: 129.424, z: -452.234}
+  m_LocalEulerAnglesHint: {x: 229.896, y: 129.424, z: -485.095}
 --- !u!33 &7230894303440792963
 MeshFilter:
   m_ObjectHideFlags: 0

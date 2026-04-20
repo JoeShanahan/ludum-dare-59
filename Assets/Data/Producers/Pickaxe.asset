@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6e4d9ca723c4d4a834a63037ec7e6d, type: 3}
+  m_Name: Pickaxe
+  m_EditorClassIdentifier: Assembly-CSharp::ProducerData
+  ObjectName: Pickaxe
+  Prefab: {fileID: 2046578131916089546, guid: 76dff8f65ffe2624b9c899c4478b2402, type: 3}
+  Description: Imagine this was a mine, and I had time to 3D model that
+  PowerRequirement: 10
+  Produces: {fileID: 11400000, guid: e097cc1684ebc8043b3af82a73a3dc6f, type: 2}
+  MaxProduction: 99

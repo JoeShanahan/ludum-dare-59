@@ -4,7 +4,7 @@
         " . W G G G G G W . . ",
         ". W G G G G G G W . .",
         " . W G M M M G G W . ",
-        ". . W G G G G G G W .",
+        ". . W G M M G G G W .",
         " . W G G G G G M W . ",
         ". W G G G G G M M W .",
         " W G G G G G G M M W ",
@@ -28,15 +28,9 @@
         " . . . . . 0 0 0 0 . "
     ],
     "Objects": [
-        "10,7,Data01_Floppy",
-        "10,8,Data01_Floppy",
-        "9,8,Data01_Floppy",
-        "9,6,Data01_Floppy",
-        "9,5,Data01_Floppy",
-        "8,6,Data01_Floppy",
-        "8,7,Data01_Floppy",
-        "7,7,Data01_Floppy",
-        "7,8,Data01_Floppy",
+        "9,6,Data02_CD",
+        "9,7,Data02_CD",
+        "9,8,Data02_CD",
         "5,2,Robo01_Ore",
         "5,3,Robo01_Ore",
         "5,4,Robo01_Ore",
@@ -57,6 +51,12 @@
         "6,5,Robo03_Gear",
         "6,6,Robo03_Gear",
         "6,7,Robo03_Gear",
-        "6,8,Robo03_Gear"
+        "6,8,Robo03_Gear",
+        "10,7,Shovel",
+        "7,8,Pickaxe",
+        "6,7,Pickaxe",
+        "4,4,Pickaxe",
+        "4,5,Pickaxe",
+        "3,4,Pickaxe"
     ]
 }

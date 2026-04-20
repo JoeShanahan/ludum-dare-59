@@ -7,6 +7,8 @@ public class HexObject : MonoBehaviour
 {
     public MapHex CurrentHex => _currentHex;
 
+    public virtual bool CanBeMoved => true;
+
     [SerializeField]
     protected MapHex _currentHex;
 
