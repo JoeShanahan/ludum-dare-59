@@ -17,7 +17,6 @@ merge robots
 * Move mouse to edge of screen to scroll
 * Text showing board full when producer fails to produce
 * Select a tile on startup, zoom in too
-* option to mute music
 
 ### NO TIME FOR
 * Other robot models
