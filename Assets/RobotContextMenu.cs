@@ -1,10 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 
 
 public class RobotContextMenu : W2C
 {
+    public static RobotContextMenu SINGLETON;
+
+    public MergeObject SleepingObj => _sleepingObj;
+    public RobotBase AwakeObj => _awakeObj;
+
     [SerializeField] private Text _titleText;
 
     private RobotBase _awakeObj;
@@ -23,6 +30,9 @@ public class RobotContextMenu : W2C
 
     [SerializeField]
     private RectTransform[] _awakeButtons;
+
+
+    private InputSystem_Actions _input;
 
     public void InitAsleep(MergeObject obj)
     {
@@ -96,11 +106,38 @@ public class RobotContextMenu : W2C
     {
         Destroy(gameObject);
     }
+    
+
+    private void OnDestroy()
+    {
+        if (SINGLETON == this)
+        {
+            SINGLETON = null;
+        }
+        _input.Disable();
+        _input.UI.Cancel.performed -= EscapePressed;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (SINGLETON != null)
+        {
+            Destroy(SINGLETON.gameObject);
+        }
+
+        SINGLETON = this;
+        _input = new();
+        _input.Enable();
+        _input.UI.Cancel.performed += EscapePressed;
+    }
+
+    private void EscapePressed(CallbackContext ctx)
+    {
+        if (ctx.control.IsPressed())
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame

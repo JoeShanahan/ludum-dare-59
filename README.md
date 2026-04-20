@@ -4,8 +4,6 @@ merge robots
 ### TODO
 
 ### URGENT
-* Hover over bots not just hexes
-* Bring up menu on awake bot
 * Put robots back to sleep
 * Plants as sources of data
 * Using power to get data

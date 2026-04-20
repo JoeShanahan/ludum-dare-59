@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1484770150325997531}
   - component: {fileID: 2586712847091757377}
   - component: {fileID: 7508896899190045251}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Robot2-Awake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 6699132544225649424}
   - component: {fileID: 1738764312914211830}
   - component: {fileID: 4596181243121668663}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ARIAL_LOWER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 3267435524906462197}
   - component: {fileID: 276572091680042090}
   - component: {fileID: 8092210870128580118}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WHEEL_LEFT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 6307712346631266728}
   - component: {fileID: 6472834605878244586}
   - component: {fileID: 1249974770482921164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WHEEL_RIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 7186148919874971444}
   - component: {fileID: 6098031608837583008}
   - component: {fileID: 3528460775560659084}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ARIAL_UPPER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5216870509682582032}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RobotLevel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 6982757599976068324}
   - component: {fileID: 5766740315762014572}
   - component: {fileID: 6753652963379705969}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BODY
   m_TagString: Untagged
   m_Icon: {fileID: 0}

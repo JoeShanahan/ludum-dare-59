@@ -12,6 +12,9 @@ public class RightClickManager : MonoBehaviour
     private LayerMask _hexLayer;
 
     [SerializeField]
+    private LayerMask _botLayer;
+
+    [SerializeField]
     private GameObject _robotMenuPrefab;
 
     private HexGrid _grid;
@@ -32,6 +35,24 @@ public class RightClickManager : MonoBehaviour
             return;
             
         Ray worldRay = _cam.ScreenPointToRay(Mouse.current.position.value);
+
+        if (Physics.Raycast(worldRay, out RaycastHit hitA, 999, _botLayer))
+        {
+            var bot = hitA.collider.GetComponent<RobotBase>();
+
+            if (bot != null)
+            {
+                bool alreadyOpen = RobotContextMenu.SINGLETON != null && RobotContextMenu.SINGLETON.AwakeObj == bot;
+                
+                if (!alreadyOpen)
+                {
+                    var cmenu = W2C.InstantiateAs<RobotContextMenu>(_robotMenuPrefab);
+                    cmenu.InitAwake(bot);
+                    return;
+                }
+            }
+        }
+
         if (Physics.Raycast(worldRay, out RaycastHit hit, 999, _hexLayer))
         {
             if (hit.collider.gameObject.TryGetComponent(out MapHex hex))
