@@ -13,9 +13,12 @@ public class RightClickManager : MonoBehaviour
     [SerializeField]
     private GameObject _robotMenuPrefab;
 
+    private HexGrid _grid;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _grid = FindFirstObjectByType<HexGrid>();
         _input = new InputSystem_Actions();
         _input.Enable();
         _cam = Camera.main;
@@ -39,8 +42,19 @@ public class RightClickManager : MonoBehaviour
                 {
                     RightClickOnMergeObject(mergeObj);
                 }
+                else if (hex.ObjectOnTop is ProducerObject po)
+                {
+                    RightClickProducer(po);
+                }
             }
         }
+    }
+
+    
+    private void RightClickProducer(ProducerObject prodObj)
+    {
+        MergeObjectData toSpawn = prodObj.Data.Produces;
+        Debug.Log(toSpawn);
     }
 
     private void RightClickOnMergeObject(MergeObject mergeObj)

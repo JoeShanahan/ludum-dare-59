@@ -57,5 +57,6 @@ public class CameraMover : MonoBehaviour
 
         _currentZoom = Mathf.Lerp(_currentZoom, _targetZoom, Time.deltaTime * 8);
         _cam.transform.position = Vector3.Lerp(_farTransform.position, _closeTransform.position, _currentZoom);
+        _cam.transform.rotation = Quaternion.Lerp(_farTransform.rotation, _closeTransform.rotation, _currentZoom);
     }
 }
