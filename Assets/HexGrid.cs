@@ -84,6 +84,23 @@ public class HexGrid : MonoBehaviour
         }
     }
 
+    public IEnumerable<MapHex> GetAllFreeTiles()
+    {
+        foreach (MapHex hex in _allHexes)
+        {
+            if (hex.CurrentFog > 0)
+                continue;
+
+            if (hex.ObjectOnTop != null)
+                continue;
+
+            if (hex.Data.IsWater)
+                continue;
+            
+            yield return hex;
+        }
+    }
+
     private void SingleTileFlipped()
     {
         RefreshFogStatus();

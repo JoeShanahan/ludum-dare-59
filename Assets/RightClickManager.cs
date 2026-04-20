@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -53,9 +54,9 @@ public class RightClickManager : MonoBehaviour
     
     private void RightClickProducer(ProducerObject prodObj)
     {
-        MergeObjectData toSpawn = prodObj.Data.Produces;
-        Debug.Log(toSpawn);
+        prodObj.ProduceItem();
     }
+
 
     private void RightClickOnMergeObject(MergeObject mergeObj)
     {
