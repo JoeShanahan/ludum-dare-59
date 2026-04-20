@@ -261,6 +261,12 @@ public class HexGrid : MonoBehaviour
         if (_highlightHex == null || _highlightHex.ObjectOnTop == null || _highlightHex.CurrentFog > 0)
             return;
 
+        if (RobotBase.CURRENT_SELECTED != null)
+        {
+            RobotBase.CURRENT_SELECTED.PickTarget(_highlightHex.ObjectOnTop);
+            return;
+        }
+
         if (_highlightHex.ObjectOnTop.CanBeMoved == false)
             return;
 

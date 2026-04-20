@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class RobotContextMenu : W2C
 {
     [SerializeField] private Text _titleText;
@@ -78,6 +80,18 @@ public class RobotContextMenu : W2C
         }
     }
 
+    public void ButtonPressGo()
+    {
+        if (RobotBase.CURRENT_SELECTED == null)
+        {
+            _awakeObj.StartPickingTarget();
+        }
+        else
+        {
+            _awakeObj.CancelPickingTarget();
+        }
+    }
+
     public void ButtonPressClose()
     {
         Destroy(gameObject);
@@ -94,7 +108,7 @@ public class RobotContextMenu : W2C
     {
         if (_awakeObj != null)
         {
-            _titleText.text = $"{_awakeObj.Data.ObjectName} ({Mathf.RoundToInt(_awakeObj.ChargePercent)}%)";
+            _titleText.text = _awakeObj.GetStatus();
         }
         else if (_sleepingObj != null)
         {

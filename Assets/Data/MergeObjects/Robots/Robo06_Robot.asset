@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
-  m_Name: Robo04_Robot
+  m_Name: Robo06_Robot
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: Boxbot
-  Level: 4
-  Next: {fileID: 11400000, guid: d3ecb8084273261448a26009833abd9d, type: 2}
+  ObjectName: Bestbot
+  Level: 6
+  Next: {fileID: 0}
   Family: {fileID: 11400000, guid: b5b0a393c059efc4db8f5c309f16154a, type: 2}
-  Prefab: {fileID: 673794866760718890, guid: 40e21a1f07be2894c9623d9ad3116647, type: 3}
-  Description: Could be convinced to deliver you pizza
+  Prefab: {fileID: 673794866760718890, guid: 4a67ccc5c3815524ca2b9bc8d54920a5, type: 3}
+  Description: Just imagine how cool this could've looked if I was good at gamejam
+    time management
   DataVals:
     IsEnabled: 0
     DataValue: 0
   RobotValues:
     IsEnabled: 1
-    MaxCharge: 20
-    DischargeRate: 2
-    RobotPrefab: {fileID: 673794866760718890, guid: fa3e63781a608b74397c885c2bf04a66, type: 3}
+    MaxCharge: 500
+    DischargeRate: 30
+    RobotPrefab: {fileID: 673794866760718890, guid: 31ab3b9e80f88f24aab5596a28ec32ab, type: 3}

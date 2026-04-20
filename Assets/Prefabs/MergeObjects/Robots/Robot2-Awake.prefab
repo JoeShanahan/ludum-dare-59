@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2586712847091757377}
   - component: {fileID: 7508896899190045251}
   m_Layer: 0
-  m_Name: Robot1-Awake
+  m_Name: Robot2-Awake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5a226f9c3a2a8458aa9b36ac834229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxRobot
-  _mergeData: {fileID: 11400000, guid: 5267b9a4519f3f54a8569a13b3eb929b, type: 2}
-  _turnSpeed: 80
-  _moveSpeed: 1
+  _mergeData: {fileID: 11400000, guid: d3ecb8084273261448a26009833abd9d, type: 2}
+  _turnSpeed: 100
+  _moveSpeed: 1.5
   _mainBody: {fileID: 6982757599976068324}
   _arialA: {fileID: 6699132544225649424}
   _arialB: {fileID: 7186148919874971444}
@@ -462,7 +462,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 0, y: 0.084, z: -0.00092715}
-  m_LocalScale: {x: 0.228405, y: 0.228405, z: 0.228405}
+  m_LocalScale: {x: 0.24999999, y: 0.24999999, z: 0.24999999}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6982757599976068324}
@@ -537,7 +537,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06010a63719904d49a91b99e1c1e20b4, type: 2}
+  - {fileID: 2100000, guid: 386dd10b6e77d174b93a6f4e85a1d152, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

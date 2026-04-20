@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
-  m_Name: Robo04_Robot
+  m_Name: Robo05_Robot
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: Boxbot
-  Level: 4
-  Next: {fileID: 11400000, guid: d3ecb8084273261448a26009833abd9d, type: 2}
+  ObjectName: Redbot
+  Level: 5
+  Next: {fileID: 11400000, guid: 0461f0e6ed6b67d45800bc50e497cea7, type: 2}
   Family: {fileID: 11400000, guid: b5b0a393c059efc4db8f5c309f16154a, type: 2}
-  Prefab: {fileID: 673794866760718890, guid: 40e21a1f07be2894c9623d9ad3116647, type: 3}
-  Description: Could be convinced to deliver you pizza
+  Prefab: {fileID: 673794866760718890, guid: f63483942ccea35478b72121dabdd238, type: 3}
+  Description: The planned design for this was really cool, but I ran out of time,
+    so please enjoy the same robot but in red
   DataVals:
     IsEnabled: 0
     DataValue: 0
   RobotValues:
     IsEnabled: 1
-    MaxCharge: 20
-    DischargeRate: 2
-    RobotPrefab: {fileID: 673794866760718890, guid: fa3e63781a608b74397c885c2bf04a66, type: 3}
+    MaxCharge: 100
+    DischargeRate: 8
+    RobotPrefab: {fileID: 673794866760718890, guid: f8b7b1789c7522c4cb1b8d1f680cf686, type: 3}
