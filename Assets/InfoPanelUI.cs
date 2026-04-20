@@ -11,7 +11,7 @@ public class InfoPanelUI : MonoBehaviour
     [SerializeField] private Text _labelsText;
     [SerializeField] private Text _valuesText;
 
-    private HexObject _selectedObj;
+    private HexObject _overObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,7 +36,7 @@ public class InfoPanelUI : MonoBehaviour
 
         HexObject hexObj = _grid.DraggingObject;
         hexObj ??= _grid.OverHex.ObjectOnTop;
-        _selectedObj = hexObj;
+        _overObject = _grid.OverHex.ObjectOnTop;
 
         if (hexObj == null)
         {
@@ -100,7 +100,7 @@ public class InfoPanelUI : MonoBehaviour
 
     public void Update()
     {
-        if (_grid.OverHex != null && _grid.OverHex != _selectedObj)
+        if (_grid.OverHex != null && _grid.OverHex.ObjectOnTop != _overObject)
         {
             Debug.LogWarning("HEy that thing happened!");
             // Something changed about the current hex while we were hovering over it - probably a producer depositing here
@@ -112,17 +112,17 @@ public class InfoPanelUI : MonoBehaviour
 
     private void RefreshDynamicValues()
     {
-        if (_selectedObj == null)
+        if (_overObject == null)
             return;
 
         // only need to do this for producers
-        if (_selectedObj is MergeObject)
+        if (_overObject is MergeObject)
             return;
 
         List<string> labels = new();
         List<string> values = new();
 
-        if (_selectedObj is ProducerObject prodObj)
+        if (_overObject is ProducerObject prodObj)
         {
             foreach ((string k, string v) in prodObj.GetInfo())
             {

@@ -24,9 +24,12 @@ public class ProducerObject : HexObject
     [SerializeField]
     private int _currentCharge;
 
+    private int _remaining;
+
     private void Start()
     {
         _grid = FindFirstObjectByType<HexGrid>();
+        _remaining = _data.MaxProduction;
     }
 
     public ChargeResult AddCharge(int amount)
@@ -42,22 +45,26 @@ public class ProducerObject : HexObject
         if (_currentCharge < _data.PowerRequirement)
             return ChargeResult.Charging;
 
-        bool didFail = false;
-
         while (_currentCharge >= _data.PowerRequirement)
         {
-            _currentCharge -= _data.PowerRequirement;
-
             if (ProduceItem() == false)
-                didFail = true;
+            {
+                _currentCharge = _data.PowerRequirement;
+                return ChargeResult.MapFull;
+            }
+
+            _currentCharge -= _data.PowerRequirement;
         }
 
-        return didFail ? ChargeResult.MapFull : ChargeResult.Produced;
+        return ChargeResult.Produced;
     }
 
     private bool ProduceItem()
     {
         MapHex freeHex = GetClosestFreeHex(CurrentHex);
+
+        if (_remaining <= 0)
+            return false;
 
         if (freeHex == null)
             return false;
@@ -72,6 +79,8 @@ public class ProducerObject : HexObject
 
         newObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         newObj.transform.DOScale(1, 0.25f).SetEase(Ease.OutExpo);
+
+        _remaining --;
         return true;
     }
 
@@ -96,7 +105,13 @@ public class ProducerObject : HexObject
 
     public override IEnumerable<(string, string)> GetInfo()
     {
+        float percent = _remaining;
+        percent /= _data.MaxProduction;
+        percent *= 100;
+
+
         yield return ("Power", $"{_currentCharge} / {Data.PowerRequirement}");
+        yield return ("Remaining", $"{Mathf.RoundToInt(percent)}%");
         yield return ("Produces", Data.Produces.ObjectName);
     }
 }

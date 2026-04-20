@@ -20,3 +20,4 @@ merge robots
 * Move mouse to edge of screen to scroll
 * Right click drag to move map
 * Show explanation of producers
+* Text showing board full when producer fails to produce

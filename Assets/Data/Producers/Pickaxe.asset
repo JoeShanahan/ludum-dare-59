@@ -17,4 +17,4 @@ MonoBehaviour:
   Description: Imagine this was a mine, and I had time to 3D model that
   PowerRequirement: 10
   Produces: {fileID: 11400000, guid: e097cc1684ebc8043b3af82a73a3dc6f, type: 2}
-  MaxProduction: 99
+  MaxProduction: 100
