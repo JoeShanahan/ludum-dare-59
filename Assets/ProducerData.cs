@@ -15,11 +15,4 @@ public class ProducerData : ScriptableObject
     public int PowerRequirement;
     public MergeObjectData Produces;
     public int MaxProduction;
-
-
-    public IEnumerable<(string, string)> InfoForUI()
-    {
-        yield return ("Power Needed", PowerRequirement.ToString());
-        yield return ("Produces", Produces.ObjectName);
-    }
 }

@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8decc11a52582e645a5ba997ea7f952a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeObject
-  Data: {fileID: 11400000, guid: ca4189fabd06f40499033e0bfdc0db19, type: 2}
   _currentHex: {fileID: 0}
+  Data: {fileID: 11400000, guid: ca4189fabd06f40499033e0bfdc0db19, type: 2}
 --- !u!1 &5418190675530602210
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06010a63719904d49a91b99e1c1e20b4, type: 2}
+  - {fileID: 2100000, guid: 0b5de9c4e5f5a6d458f25ec3016f0efd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

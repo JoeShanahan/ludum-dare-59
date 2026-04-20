@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
   m_Name: Power01_Sand
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: Sand
+  ObjectName: Pile of Sand
   Level: 1
   Next: {fileID: 11400000, guid: ca4189fabd06f40499033e0bfdc0db19, type: 2}
   Family: {fileID: 11400000, guid: 34adcaca6104f944a84d1cb879e62ccb, type: 2}

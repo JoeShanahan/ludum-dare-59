@@ -50,4 +50,9 @@ public class HexObject : MonoBehaviour
     {
         StopAllCoroutines();
     }
+
+    public virtual IEnumerable<(string, string)> GetInfo()
+    {
+        yield break;
+    }
 }

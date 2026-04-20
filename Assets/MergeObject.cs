@@ -21,4 +21,12 @@ public class MergeObject : HexObject
         transform.DOMove(target.transform.position, time).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
         transform.DOScale(0, time).SetEase(Ease.OutSine);
     }
+
+    public override IEnumerable<(string, string)> GetInfo()
+    {
+        foreach ((string k, string v) in Data.InfoForUI())
+        {
+            yield return (k, v);
+        }
+    }
 }
