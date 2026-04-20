@@ -29,7 +29,7 @@ public class HexDataCostOverlay : MonoBehaviour
         if (_heldObject == _grid.DraggingObject)
             return;
 
-        _heldObject = _grid.DraggingObject;
+        _heldObject = _grid.DraggingObject as MergeObject;
 
         if (_heldObject == null || _heldObject.Data.CanDispelFog == false)
         {

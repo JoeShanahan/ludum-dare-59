@@ -52,10 +52,10 @@ public class HexGrid : MonoBehaviour
 
     private Camera _cam;
 
-    private MergeObject _draggingObject;
+    private HexObject _draggingObject;
 
     public MapHex OverHex => _overHex;
-    public MergeObject DraggingObject => _draggingObject;
+    public HexObject DraggingObject => _draggingObject;
     private List<MapHex> _allHexes;
 
     public IEnumerable<MapHex> GetAllFogTiles()
@@ -242,17 +242,19 @@ public class HexGrid : MonoBehaviour
 
         bool isFree = _overHex.ObjectOnTop == _draggingObject || _overHex.ObjectOnTop == null;
         bool isInvalid = _overHex.Data.IsWater;
+        MergeObject mergeObj = _draggingObject as MergeObject;
 
         if (!isInvalid && _overHex.CurrentFog > 0)
         {
-            if (_overHex.CanBeDefogged && _draggingObject.Data.CanDispelFog)
+
+            if (mergeObj != null && _overHex.CanBeDefogged && mergeObj.Data.CanDispelFog)
             {
-                int remainder = Mathf.Max(_draggingObject.Data.DataVals.DataValue - _overHex.CurrentFog, 0);
+                int remainder = Mathf.Max(mergeObj.Data.DataVals.DataValue - _overHex.CurrentFog, 0);
                 SendData(_overHex, remainder);
 
-                _overHex.RemoveFog(_draggingObject.Data.DataVals.DataValue);
+                _overHex.RemoveFog(mergeObj.Data.DataVals.DataValue);
                 _draggingObject.CurrentHex.SetObject(null);
-                _draggingObject.DoSpendData(_overHex, 0.25f);
+                mergeObj.DoSpendData(_overHex, 0.25f);
                 _draggingObject = null;
                 OnSelectedHexChange(_overHex);
                 HideAllHighlights();
@@ -285,8 +287,8 @@ public class HexGrid : MonoBehaviour
 
             if (otherHex != thisHex)
             {
-                MergeObject otherObj = otherHex.ObjectOnTop;
-                MergeObject thisObj = _draggingObject;
+                HexObject otherObj = otherHex.ObjectOnTop;
+                HexObject thisObj = _draggingObject;
                 
                 otherHex.SetObject(thisObj);
                 thisHex.SetObject(otherObj);
@@ -300,15 +302,15 @@ public class HexGrid : MonoBehaviour
 
         List<MapHex> mergableHexes = GetMergeableHexes();
 
-        if (mergableHexes.Count > 2)
+        if (mergeObj != null && mergableHexes.Count > 2)
         {
-            MergeObjectData newData = _draggingObject.Data.Next;
+            MergeObjectData newData = mergeObj.Data.Next;
 
             if (newData != null)
             {
                 foreach (MapHex hex in mergableHexes)
                 {
-                    MergeObject onTop = hex.ObjectOnTop;
+                    MergeObject onTop = hex.ObjectOnTop as MergeObject;
                     hex.SetObject(null);
                     onTop.DoMerge(_overHex, 0.25f);
                 }
@@ -427,7 +429,12 @@ public class HexGrid : MonoBehaviour
         var result = new List<MapHex>();
         var todo = new Queue<MapHex>();
 
-        if (_draggingObject.Data.Next == null)
+        var dragObj = _draggingObject as MergeObject;
+
+        if (dragObj == null)
+            return result;
+
+        if (dragObj.Data.Next == null)
             return result;
 
         if (_overHex.CurrentFog > 0)
@@ -453,7 +460,9 @@ public class HexGrid : MonoBehaviour
                 if (nbor == _draggingObject.CurrentHex && _overHex != _highlightHex)
                     continue;
 
-                if (nbor.ObjectOnTop.Data != _draggingObject.Data)
+                MergeObject nborMerge = nbor.ObjectOnTop as MergeObject;
+
+                if (nborMerge == null || nborMerge.Data != dragObj.Data)
                     continue;
 
                 if (nbor.CurrentFog > 0)

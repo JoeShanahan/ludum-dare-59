@@ -2,16 +2,20 @@
 merge robots
 
 ### TODO
-* Right click to place mine
-* Right click to activate spawner
-* Right click menu
-* Controls on screen
-* Robots breaking away from tiles
-* Robots recharging
-* Robots animating
 * Placing solar panels
 * Plants merge line
+
+### Central Mechanics
+* Robots using tools to generate items
+* Robots Recharging
+* Robots going back to sleep
 * Using power to get data
+
+### Charm
+* Robots animating
+
+### Quality of Life
+* Make highlight turn red if invalid
+* Controls on screen
 * Move mouse to edge of screen to scroll
 * Right click drag to move map
-* Make highlight turn red if invalid

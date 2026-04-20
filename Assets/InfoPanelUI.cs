@@ -32,16 +32,16 @@ public class InfoPanelUI : MonoBehaviour
         List<string> labels = new();
         List<string> values = new();
 
-        MergeObject mergeObj = _grid.DraggingObject;
-        mergeObj ??= _grid.OverHex.ObjectOnTop;
+        HexObject hexObj = _grid.DraggingObject;
+        hexObj ??= _grid.OverHex.ObjectOnTop;
 
-        if (mergeObj == null)
+        if (hexObj == null)
         {
             _titleText.gameObject.SetActive(false);
             _familyText.gameObject.SetActive(false);
             _descriptionText.gameObject.SetActive(false);
         }
-        else
+        else if (hexObj is MergeObject mergeObj)
         {
             _titleText.gameObject.SetActive(true);
             _familyText.gameObject.SetActive(true);

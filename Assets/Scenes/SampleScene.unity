@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 594806030}
   - component: {fileID: 594806029}
   m_Layer: 0
-  m_Name: BlueHighlight (5)
+  m_Name: HexHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,7 +1112,7 @@ GameObject:
   - component: {fileID: 1009077334}
   - component: {fileID: 1009077333}
   m_Layer: 0
-  m_Name: BlueHighlight (4)
+  m_Name: HexHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1305,7 @@ GameObject:
   - component: {fileID: 1163248444}
   - component: {fileID: 1163248443}
   m_Layer: 0
-  m_Name: BlueHighlight (1)
+  m_Name: HexHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1396,7 +1396,7 @@ GameObject:
   - component: {fileID: 1183505089}
   - component: {fileID: 1183505088}
   m_Layer: 0
-  m_Name: BlueHighlight (2)
+  m_Name: HexHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2211,7 +2211,7 @@ GameObject:
   - component: {fileID: 1816767737}
   - component: {fileID: 1816767736}
   m_Layer: 0
-  m_Name: BlueHighlight (3)
+  m_Name: HexHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2663,7 +2663,7 @@ GameObject:
   - component: {fileID: 2682550699615496368}
   - component: {fileID: 3967346521393470732}
   m_Layer: 0
-  m_Name: HexHighlight
+  m_Name: WhiteOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

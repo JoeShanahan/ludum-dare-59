@@ -18,7 +18,7 @@ public class MapHex : MonoBehaviour
     private int _fogCost;
 
     [SerializeField]
-    private MergeObject _currentObject;
+    private HexObject _currentObject;
 
     [SerializeField]
     private Transform _coverTransform;
@@ -32,7 +32,7 @@ public class MapHex : MonoBehaviour
     [SerializeField]
     private Material[] _unlockedFogMats;
 
-    public MergeObject ObjectOnTop => _currentObject;
+    public HexObject ObjectOnTop => _currentObject;
 
     public IEnumerable<MapHex> Neighbours => _neighbours;
 
@@ -42,7 +42,7 @@ public class MapHex : MonoBehaviour
 
     public bool CanBeDefogged { get; private set; }
 
-    public void SetObject(MergeObject mergeObject)
+    public void SetObject(HexObject mergeObject)
     {
         _currentObject = mergeObject;
     }

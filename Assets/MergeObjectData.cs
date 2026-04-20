@@ -64,4 +64,16 @@ namespace MergeObjectSubData
             yield return ("Discharge", $"{DischargeRate} per sec");
         }
     }
+
+    [Serializable]
+    public class PowerValues
+    {
+        public bool IsEnabled;
+        public int PerMinute;
+
+        public IEnumerable<(string, string)> InfoForUI()
+        {
+            yield return ("Charge Rate", $"{PerMinute} per min");
+        }
+    }
 }

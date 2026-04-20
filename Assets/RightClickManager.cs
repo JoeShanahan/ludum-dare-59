@@ -22,7 +22,6 @@ public class RightClickManager : MonoBehaviour
         _input.UI.RightClick.performed += RightClickPerformed;
     }
 
-
     void RightClickPerformed(CallbackContext ctx)
     {
         if (ctx.control.IsPressed() == false)
@@ -33,12 +32,23 @@ public class RightClickManager : MonoBehaviour
         {
             if (hit.collider.gameObject.TryGetComponent(out MapHex hex))
             {
-                if (hex.ObjectOnTop != null && hex.ObjectOnTop.Data.RobotValues.IsEnabled)
+                if (hex.ObjectOnTop == null)
+                    return;
+
+                if (hex.ObjectOnTop is MergeObject mergeObj)
                 {
-                    var cmenu = W2C.InstantiateAs<RobotContextMenu>(_robotMenuPrefab);
-                    cmenu.InitAsleep(hex.ObjectOnTop);
+                    RightClickOnMergeObject(mergeObj);
                 }
             }
+        }
+    }
+
+    private void RightClickOnMergeObject(MergeObject mergeObj)
+    {
+        if (mergeObj.Data.RobotValues.IsEnabled)
+        {
+            var cmenu = W2C.InstantiateAs<RobotContextMenu>(_robotMenuPrefab);
+            cmenu.InitAsleep(mergeObj);
         }
     }
 }
