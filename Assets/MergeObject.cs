@@ -7,6 +7,8 @@ public class MergeObject : HexObject
 {
     public MergeObjectData Data;
 
+    public RobotBase Reservation;
+
     public void DoMerge(MapHex target, float time)
     {
         _isKilled = true;

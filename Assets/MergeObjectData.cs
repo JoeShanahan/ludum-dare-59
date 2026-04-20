@@ -19,6 +19,7 @@ public class MergeObjectData : ScriptableObject
     [Space(16)]
     public DataValues DataVals;
     public RobotValues RobotValues;
+    public PowerValues PowerValues;
 
     public IEnumerable<(string, string)> InfoForUI()
     {

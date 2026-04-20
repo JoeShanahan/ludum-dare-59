@@ -15,9 +15,25 @@ public class FindSleepSpotTask : RobotTask
 
 public class RechargeTask : RobotTask
 {
-    public override string Status => "Looking charger";
-
+    public float SearchCooldown;
     public MergeObject Station;
+
+    public override string Status
+    {
+        get
+        {
+            if (SearchCooldown > 0)
+            {
+                return $"Looking for recharge in {Mathf.Ceil(SearchCooldown)}...";
+            }
+            if (Station == null)
+            {
+                return "Looking for recharge";
+            }
+
+            return $"Recharging at {Station.Data.ObjectName}";
+        }   
+    }
 }
 
 public class UseProducerTask : RobotTask
@@ -148,6 +164,8 @@ public class RobotBase : MonoBehaviour
 
         if (_currentTask is UseProducerTask pt)
             DoProducerTask(pt);
+        else if (_currentTask is RechargeTask rt)
+            DoRechargeTask(rt);
     }
 
     private void DoProducerTask(UseProducerTask proTask)
@@ -167,6 +185,7 @@ public class RobotBase : MonoBehaviour
 
         proTask.Cooldown = 1f / _mergeData.RobotValues.DischargeRate;
         ChargeResult result = proTask.Producer.AddCharge(1);
+        Power --;
 
         if (result == ChargeResult.MapFull || result == ChargeResult.Empty)
         {
@@ -175,9 +194,77 @@ public class RobotBase : MonoBehaviour
         }
     }
 
+    private void DoRechargeTask(RechargeTask rTask)
+    {
+        if (rTask.SearchCooldown > 0)
+        {
+            rTask.SearchCooldown -= Time.deltaTime;
+            return;
+        }
+        
+        if (rTask.Station == null)
+        {
+            float closest = 999;
+            MergeObject best = null;
+
+            foreach (MapHex hex in _grid.AllTiles)
+            {
+                if (hex.CurrentFog > 0 || hex.ObjectOnTop is not MergeObject mo)
+                    continue;
+
+                if (mo.Data.PowerValues.IsEnabled == false)
+                    continue;
+
+                if (mo.Reservation != null && mo.Reservation != this)
+                    continue;
+
+                float d = Vector3.Distance(mo.transform.position, transform.position);
+
+                if (best == null)
+                {
+                    best = mo;
+                    closest = d;
+                    continue;
+                }
+
+                if (best.Data.PowerValues.PerMinute < mo.Data.PowerValues.PerMinute)
+                    continue;
+
+                if (d < closest)
+                {
+                    best = mo;
+                    closest = d;
+                }
+            }
+
+
+            if (best != null)
+            {
+                rTask.Station = best;
+                best.Reservation = this;            
+            }
+        }
+
+        if (rTask.Station == null)
+        {
+            rTask.SearchCooldown = 3;
+            return;
+        }
+
+        bool reachedDestination = MoveTo(rTask.Station.transform.position);
+
+        if (!reachedDestination)
+        {
+            return;
+        }
+    }
+
     private void StartRechargeTask()
     {
-        
+        if (_currentTask is RechargeTask)
+            return;
+
+        _currentTask = new RechargeTask();
     }
 
     protected virtual void Rotate(float amount)

@@ -26,3 +26,6 @@ MonoBehaviour:
     MaxCharge: 0
     DischargeRate: 0
     RobotPrefab: {fileID: 0}
+  PowerValues:
+    IsEnabled: 1
+    PerMinute: 100
