@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d6e4d9ca723c4d4a834a63037ec7e6d, type: 3}
-  m_Name: SignalTower
+  m_Name: Flowers
   m_EditorClassIdentifier: Assembly-CSharp::ProducerData
-  ObjectName: Signal Tower
+  ObjectName: Flowers
   Prefab: {fileID: 3489261194661557216, guid: 79fef9e5dd3c38140bf6644b8afdaf53, type: 3}
-  TaskString: Charging the Tower
-  Description: Fully charge the tower to receive the signal!
-  PowerRequirement: 500
-  Produces: {fileID: 11400000, guid: 47a6579f9ada5d742b876d3bbf5480b8, type: 2}
-  MaxProduction: 100
+  TaskString: Researching Wildlife
+  Description: Scanning the plants could help uncover more of the island
+  PowerRequirement: 5
+  Produces: {fileID: 11400000, guid: c5ee343c50fa7d84795d6d6354b710b3, type: 2}
+  MaxProduction: 30

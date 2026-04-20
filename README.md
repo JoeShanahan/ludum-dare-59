@@ -5,12 +5,14 @@ merge robots
 
 ### URGENT
 * Put robots back to sleep
+* Robots Recharging
 * Plants as sources of data
 * Using power to get data
 * The win condition! The radio tower!
-* Robots Recharging
 * Turn off the abilty to right click producers
 * The void tile
+* Destroy provider when out of supplies
+* Animation showing putting power into task
 
 ### Quality of Life
 * Controls on screen

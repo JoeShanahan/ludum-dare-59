@@ -8,6 +8,7 @@ public class ProducerData : ScriptableObject
 {
     public string ObjectName;
     public GameObject Prefab;
+    public string TaskString;
 
     [TextArea(1,5)]
     public string Description;

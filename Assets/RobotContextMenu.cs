@@ -75,6 +75,8 @@ public class RobotContextMenu : W2C
         _sleepingObj = null;
         SetPosition(_awakeObj.transform);
 
+        InitAwake(_awakeObj);
+
         foreach (RectTransform t in _awakeButtons)
             t.gameObject.SetActive(true);
         
@@ -136,6 +138,7 @@ public class RobotContextMenu : W2C
     {
         if (ctx.control.IsPressed())
         {
+            RobotBase.CURRENT_SELECTED = null;
             Destroy(gameObject);
         }
     }

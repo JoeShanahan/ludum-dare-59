@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProducerData
   ObjectName: Shovel
   Prefab: {fileID: 5631078127005098802, guid: a527469b95edd3e4197ab576ecac63e3, type: 3}
+  TaskString: Digging Sand
   Description: I know the robots don't have hands but they make it work somehow
   PowerRequirement: 8
   Produces: {fileID: 11400000, guid: 529275731096b5b4e90278884bf87a04, type: 2}
-  MaxProduction: 100
+  MaxProduction: 5

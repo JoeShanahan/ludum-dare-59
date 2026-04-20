@@ -22,6 +22,9 @@ public class RechargeTask : RobotTask
 
 public class UseProducerTask : RobotTask
 {
+    // public override string Status => $"Getting {Producer.Data.Produces.ObjectName} from {Producer.Data.name}";
+    public override string Status => Producer.Data.TaskString;
+
     public ProducerObject Producer;
     public float Cooldown;
 }
@@ -54,11 +57,11 @@ public class RobotBase : MonoBehaviour
 
     public string GetStatus()
     {
-        if (_currentTask == null)
-            return "No Task";
-
         if (CURRENT_SELECTED == this)
             return "Please select destination";
+
+        if (_currentTask == null)
+            return "No Task";
 
         return _currentTask.Status;
     }
@@ -100,7 +103,14 @@ public class RobotBase : MonoBehaviour
 
     public void StartProducerTask(ProducerObject obj)
     {
+        bool doingWhatTold = _currentTask == _directedTask;
+
         _directedTask = new UseProducerTask() { Producer = obj };
+    
+        if (doingWhatTold)
+        {
+            _currentTask = _directedTask;
+        }
     }
 
     public virtual bool MoveTo(Vector3 position)
@@ -158,7 +168,7 @@ public class RobotBase : MonoBehaviour
         proTask.Cooldown = 1f / _mergeData.RobotValues.DischargeRate;
         ChargeResult result = proTask.Producer.AddCharge(1);
 
-        if (result == ChargeResult.MapFull)
+        if (result == ChargeResult.MapFull || result == ChargeResult.Empty)
         {
             _directedTask = null;
             _currentTask = null;

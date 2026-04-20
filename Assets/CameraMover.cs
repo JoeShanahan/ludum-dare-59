@@ -20,8 +20,8 @@ public class CameraMover : MonoBehaviour
 
     private Camera _cam;
 
-    private float _currentZoom = 0.0f;
-    private float _targetZoom = 0.0f;
+    private float _currentZoom = 0.5f;
+    private float _targetZoom = 0.5f;
 
     private InputSystem_Actions _input;
     private Vector3 _velocity;

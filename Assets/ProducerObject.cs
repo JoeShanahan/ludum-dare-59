@@ -8,7 +8,8 @@ public enum ChargeResult
     Error,
     Charging,
     Produced,
-    MapFull
+    MapFull,
+    Empty
 }
 
 public class ProducerObject : HexObject
@@ -54,6 +55,13 @@ public class ProducerObject : HexObject
             }
 
             _currentCharge -= _data.PowerRequirement;
+        }
+
+        if (_remaining <= 0)
+        {
+            _currentHex.SetObject(null);
+            Destroy(gameObject);
+            return ChargeResult.Empty;
         }
 
         return ChargeResult.Produced;
