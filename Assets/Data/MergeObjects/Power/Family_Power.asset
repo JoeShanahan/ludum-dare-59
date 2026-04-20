@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0d4c99485a2a24ba80358df7d0f84e, type: 3}
+  m_Name: Family_Power
+  m_EditorClassIdentifier: Assembly-CSharp::MergeFamilyData
+  FamilyName: Power
+  Objects:
+  - {fileID: 11400000, guid: 529275731096b5b4e90278884bf87a04, type: 2}
+  - {fileID: 11400000, guid: ca4189fabd06f40499033e0bfdc0db19, type: 2}
+  - {fileID: 11400000, guid: 7067e32d54b8cb24e9547e17863f9522, type: 2}
+  - {fileID: 11400000, guid: 65ece785220ad32488ba0bfbaec2682a, type: 2}
+  - {fileID: 11400000, guid: 66dc8582551994841807b043cb5dac57, type: 2}
+  - {fileID: 11400000, guid: 413e8f6f1b1f3624388f0d9449c47874, type: 2}
