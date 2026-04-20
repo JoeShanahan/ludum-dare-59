@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flowers
   m_EditorClassIdentifier: Assembly-CSharp::ProducerData
   ObjectName: Flowers
-  Prefab: {fileID: 3489261194661557216, guid: 79fef9e5dd3c38140bf6644b8afdaf53, type: 3}
+  Prefab: {fileID: 3489261194661557216, guid: ac1dc5ebae3199c43a5aaa43b4f77345, type: 3}
   TaskString: Researching Wildlife
   Description: Scanning the plants could help uncover more of the island
   PowerRequirement: 5

@@ -75,7 +75,7 @@ public class RightClickManager : MonoBehaviour
     
     private void RightClickProducer(ProducerObject prodObj)
     {
-        prodObj.AddCharge(100);
+        // prodObj.AddCharge(100);
     }
 
 
