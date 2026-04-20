@@ -73,6 +73,8 @@ public class HexGrid : MonoBehaviour
     public HexObject DraggingObject => _draggingObject;
     private List<MapHex> _allHexes;
 
+    public IEnumerable<MapHex> AllTiles => _allHexes;
+
     public IEnumerable<MapHex> GetAllFogTiles()
     {
         foreach (MapHex hex in _allHexes)
@@ -437,6 +439,11 @@ public class HexGrid : MonoBehaviour
             Vector3 tgtPos = _overHex.transform.position + Vector3.up;
             _draggingObject.transform.position = Vector3.Lerp(_draggingObject.transform.position, tgtPos, Time.deltaTime * 13);
         }
+    }
+
+    public void SelectHexButOnlyUseThisOnFirstStartupPlease(MapHex newHex)
+    {
+        OnSelectedHexChange(newHex);
     }
 
     private void OnSelectedHexChange(MapHex newHex)

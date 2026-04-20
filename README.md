@@ -11,12 +11,14 @@ merge robots
 * Using power to get data
 * The win condition! The radio tower!
 * Robots Recharging
+* Turn off the abilty to right click producers
+* The void tile
 
 ### Quality of Life
 * Controls on screen
+* Mouse wheel to zoom
 * Move mouse to edge of screen to scroll
 * Text showing board full when producer fails to produce
-* Select a tile on startup, zoom in too
 
 ### NO TIME FOR
 * Other robot models
