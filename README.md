@@ -5,15 +5,20 @@ merge robots
 
 ### URGENT
 * The win condition! The radio tower!
-* Animation showing putting power into task
+* Need more flowers!
+* somethign wrong with extra data particles
+* waiting for space task
+* picking best solar panel not best
+* wind turbine doesn't spin
 
 ### PRETTY IMPORTANT
 * The void tile
-* Trees
+
 
 
 ### Quality of Life
 * Controls on screen
+* Animation showing putting power into task
 * Mouse wheel to zoom
 * Move mouse to edge of screen to scroll
 * Text showing board full when producer fails to produce
@@ -24,3 +29,4 @@ merge robots
 * Merge sound effects
 * Robots animating when doing task
 * Right click drag to move map
+* Trees

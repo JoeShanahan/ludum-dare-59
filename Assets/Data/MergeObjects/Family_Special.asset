@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0d4c99485a2a24ba80358df7d0f84e, type: 3}
   m_Name: Family_Special
   m_EditorClassIdentifier: Assembly-CSharp::MergeFamilyData
-  FamilyName: Special Objects
+  FamilyName: Placeholder
   Objects:
   - {fileID: 11400000, guid: 47a6579f9ada5d742b876d3bbf5480b8, type: 2}
+  - {fileID: 11400000, guid: 825e5802fa6686c4e8128cfbb1480cf4, type: 2}

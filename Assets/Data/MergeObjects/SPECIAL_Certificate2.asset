@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9426dedd04ec4a1448ec336b80ec49be, type: 3}
-  m_Name: Power05_SolarBig
+  m_Name: SPECIAL_Certificate2
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
-  ObjectName: Solar Array
-  Level: 5
-  Next: {fileID: 11400000, guid: 413e8f6f1b1f3624388f0d9449c47874, type: 2}
-  Family: {fileID: 11400000, guid: 34adcaca6104f944a84d1cb879e62ccb, type: 2}
-  Prefab: {fileID: 1864926413153938026, guid: 2e10cb8625b11534ea7307b63a792301, type: 3}
-  Description: Like a Solar List but less dynamic
+  ObjectName: Double Certificate?
+  Level: 2
+  Next: {fileID: 0}
+  Family: {fileID: 11400000, guid: 52d88147860dbab4cb2f5260c5c0b4c0, type: 2}
+  Prefab: {fileID: 6174691072537226492, guid: 256cb8e709ad1a4459b6ca32f6b47a50, type: 3}
+  Description: Thanks for sticking around, but there's really nothing after this!
   DataVals:
     IsEnabled: 0
     DataValue: 0
@@ -27,5 +27,5 @@ MonoBehaviour:
     DischargeRate: 0
     RobotPrefab: {fileID: 0}
   PowerValues:
-    IsEnabled: 1
-    PerMinute: 900
+    IsEnabled: 0
+    PerMinute: 0

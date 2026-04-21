@@ -395,6 +395,9 @@ public class RobotBase : MonoBehaviour
                 if (hex.CurrentFog > 0 || hex.ObjectOnTop != null)
                     continue;
 
+                if (hex.Data.IsWater)
+                    continue;
+
                 float d = Vector3.Distance(hex.transform.position, transform.position);
 
                 if (d < closest)

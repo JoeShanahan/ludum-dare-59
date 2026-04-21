@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MergeObjectData
   ObjectName: Certificate
   Level: 1
-  Next: {fileID: 0}
-  Family: {fileID: 11400000, guid: 36ee4c6dfe0b41f4697d7975e1e396c1, type: 2}
+  Next: {fileID: 11400000, guid: 825e5802fa6686c4e8128cfbb1480cf4, type: 2}
+  Family: {fileID: 11400000, guid: 52d88147860dbab4cb2f5260c5c0b4c0, type: 2}
   Prefab: {fileID: 5046400690071393708, guid: a4e07633854456444a0fc686edac7ded, type: 3}
   Description: Congratulations, we decoded the signal and it says you're the best
   DataVals:
@@ -26,3 +26,6 @@ MonoBehaviour:
     MaxCharge: 0
     DischargeRate: 0
     RobotPrefab: {fileID: 0}
+  PowerValues:
+    IsEnabled: 0
+    PerMinute: 0

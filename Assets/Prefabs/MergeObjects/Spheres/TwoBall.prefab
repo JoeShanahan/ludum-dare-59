@@ -136,8 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8decc11a52582e645a5ba997ea7f952a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeObject
-  Data: {fileID: 11400000, guid: ad5edfc3a4a325c45bc17614cf5a6328, type: 2}
   _currentHex: {fileID: 0}
+  Data: {fileID: 11400000, guid: 825e5802fa6686c4e8128cfbb1480cf4, type: 2}
+  Reservation: {fileID: 0}
+  PowerStored: 0
 --- !u!1 &8183893703510459871
 GameObject:
   m_ObjectHideFlags: 0

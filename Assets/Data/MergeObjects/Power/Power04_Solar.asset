@@ -28,4 +28,4 @@ MonoBehaviour:
     RobotPrefab: {fileID: 0}
   PowerValues:
     IsEnabled: 1
-    PerMinute: 100
+    PerMinute: 200
