@@ -19,6 +19,11 @@ public class MergeObject : HexObject
         }
     }
 
+    public void InitFromRobot(RobotBase robo)
+    {
+        PowerStored = robo.Power;
+    }
+
     public void DoMerge(MapHex target, float time)
     {
         _isKilled = true;

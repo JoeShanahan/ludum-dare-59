@@ -13,9 +13,28 @@ public abstract class RobotTask
 
 public class FindSleepSpotTask : RobotTask
 {
-    public override string Status => "Looking for sleep spot";
+    public float SearchCooldown;
+    public MapHex SleepHex;
+    public bool IsLockedIn;
+    public float SleepIn;
 
-    public MapHex CurrentHex;
+    public override string Status
+    {
+        get
+        {
+            if (IsLockedIn)
+            {
+                return "Powering down...";
+            }
+
+            if (SearchCooldown > 0 || SleepHex == null)
+            {
+                return $"Looking for empty spot in {Mathf.Ceil(SearchCooldown)}...";
+            }
+
+            return $"Heading to sleep";
+        }   
+    }
 }
 
 public class RechargeTask : RobotTask
@@ -80,6 +99,8 @@ public class RobotBase : MonoBehaviour
 
     private RobotTask _directedTask;
     private RobotTask _currentTask;
+
+    private Vector3 _sleepVector = new Vector3(0.34f, 0.00f, -0.94f);
 
     [SerializeField] protected float _turnSpeed = 1;
     [SerializeField] protected float _moveSpeed = 1;
@@ -148,23 +169,37 @@ public class RobotBase : MonoBehaviour
         }
     }
 
-    public virtual bool MoveTo(Vector3 position)
+    public void StartSleepTask()
+    {
+        if (_currentTask is FindSleepSpotTask)
+            return;
+
+        _directedTask = new FindSleepSpotTask();
+        _currentTask?.CleanUp(this);
+        _currentTask = _directedTask;
+    }
+
+    public virtual bool MoveTo(Vector3 position, float proximity)
     {
         Vector3 diffVec = position - transform.position;
         diffVec.y = 0;
 
         float signedAngle = Vector3.SignedAngle(transform.forward, diffVec, Vector3.up);
         signedAngle = Mathf.Clamp(signedAngle, -_turnSpeed * Time.deltaTime, _turnSpeed * Time.deltaTime);
-
-        if (Mathf.Abs(signedAngle) > 0.1f)
+        
+        if (diffVec.magnitude > proximity * 1.05f)
         {
-            Rotate(signedAngle);
-            return false;
+            if (Mathf.Abs(signedAngle) > 0.1f)
+            {
+                Rotate(signedAngle);
+                return false;
+            }
         }
 
-        if (diffVec.magnitude > 1)
+        if (diffVec.magnitude > proximity)
         {
-            MoveForwards(_moveSpeed * Time.deltaTime);
+            float dist = Mathf.Min(_moveSpeed * Time.deltaTime, diffVec.magnitude);
+            MoveForwards(dist);
             return false;
         }
 
@@ -185,11 +220,13 @@ public class RobotBase : MonoBehaviour
             DoProducerTask(pt);
         else if (_currentTask is RechargeTask rt)
             DoRechargeTask(rt);
+        else if (_currentTask is FindSleepSpotTask st)
+            DoSleepTask(st);
     }
 
     private void DoProducerTask(UseProducerTask proTask)
     {
-        bool reachedDestination = MoveTo(proTask.Producer.transform.position);
+        bool reachedDestination = MoveTo(proTask.Producer.transform.position, 1);
 
         if (!reachedDestination)
         {
@@ -267,16 +304,119 @@ public class RobotBase : MonoBehaviour
 
         if (rTask.Station == null)
         {
-            rTask.SearchCooldown = 3;
+            rTask.SearchCooldown = 6;
             return;
         }
 
-        bool reachedDestination = MoveTo(rTask.Station.transform.position);
+        bool reachedDestination = MoveTo(rTask.Station.transform.position, 1);
 
         if (!reachedDestination)
         {
             return;
         }
+    }
+
+    private void DoSleepTask(FindSleepSpotTask sTask)
+    {
+        if (sTask.IsLockedIn)
+        {
+            sTask.SleepIn -= Time.deltaTime;
+
+            if (sTask.SleepIn <= 0)
+            {
+                if (sTask.SleepHex.ObjectOnTop != null)
+                {
+                    Debug.LogWarning("Something took my spot before I could sleep in it!");
+                    WakeUp();
+                    sTask.IsLockedIn = false;
+                    sTask.SleepHex = null;
+                }
+                else
+                {
+                    GameObject newObj = GameObject.Instantiate(_mergeData.Prefab, transform.parent);
+                    MergeObject sleepingObj = newObj.GetComponent<MergeObject>();
+                    sleepingObj.SetCurrentHex(sTask.SleepHex);
+                    sTask.SleepHex.SetObject(sleepingObj);
+                    sleepingObj.InitFromRobot(this);
+
+                    newObj.transform.position = sTask.SleepHex.transform.position;
+
+                    if (RobotContextMenu.SINGLETON != null && RobotContextMenu.SINGLETON.AwakeObj == this)
+                    {
+                        RobotContextMenu.SINGLETON.InitAsleep(sleepingObj);
+                    }
+
+                    Destroy(gameObject);
+
+                    return;            
+                }
+            }
+
+            return;
+        }
+
+        if (sTask.SleepHex != null && sTask.SleepHex.ObjectOnTop != null)
+        {
+            sTask.SleepHex = null;
+        }
+
+        if (sTask.SearchCooldown > 0)
+        {
+            sTask.SearchCooldown -= Time.deltaTime;
+            return;
+        }
+        
+        if (sTask.SleepHex == null)
+        {
+            float closest = 999;
+            MapHex best = null;
+
+            foreach (MapHex hex in _grid.AllTiles)
+            {
+                if (hex.CurrentFog > 0 || hex.ObjectOnTop != null)
+                    continue;
+
+                float d = Vector3.Distance(hex.transform.position, transform.position);
+
+                if (d < closest)
+                {
+                    best = hex;
+                    closest = d;
+                }
+            }
+
+
+            if (best != null)
+            {
+                sTask.SleepHex = best;     
+            }
+        }
+
+        if (sTask.SleepHex == null)
+        {
+            sTask.SearchCooldown = 6;
+            return;
+        }
+
+        bool reachedDestination = MoveTo(sTask.SleepHex.transform.position, 0.01f);
+
+        if (!reachedDestination)
+        {
+            return;
+        }
+
+        float signedAngle = Vector3.SignedAngle(transform.forward, _sleepVector, Vector3.up);
+        signedAngle = Mathf.Clamp(signedAngle, -_turnSpeed * Time.deltaTime, _turnSpeed * Time.deltaTime);
+
+        if (Mathf.Abs(signedAngle) > 1f)
+        {
+            Rotate(signedAngle);
+            return;
+        }
+
+        sTask.IsLockedIn = true;
+        sTask.SleepIn = 1f;
+        GoToSleep();
     }
 
     private void StartRechargeTask()

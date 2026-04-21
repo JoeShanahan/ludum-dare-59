@@ -92,7 +92,7 @@ public class RobotContextMenu : W2C
             return;
         }
 
-
+        _awakeObj.StartSleepTask();
     }
 
     public void ButtonPressGo()
