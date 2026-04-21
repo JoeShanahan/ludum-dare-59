@@ -135,5 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8decc11a52582e645a5ba997ea7f952a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeObject
-  Data: {fileID: 11400000, guid: 3b457391c36c13e409b9f8a38217396d, type: 2}
   _currentHex: {fileID: 0}
+  Data: {fileID: 11400000, guid: 47a6579f9ada5d742b876d3bbf5480b8, type: 2}
+  Reservation: {fileID: 0}
+  PowerStored: 0

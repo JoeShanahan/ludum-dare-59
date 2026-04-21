@@ -4,7 +4,6 @@ merge robots
 ### TODO
 
 ### URGENT
-* Recharging!
 * The win condition! The radio tower!
 * Animation showing putting power into task
 

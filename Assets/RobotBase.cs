@@ -40,6 +40,7 @@ public class FindSleepSpotTask : RobotTask
 public class RechargeTask : RobotTask
 {
     public float SearchCooldown;
+    public float ChargeCooldown;
     public MergeObject Station;
 
     public override string Status
@@ -313,6 +314,24 @@ public class RobotBase : MonoBehaviour
         if (!reachedDestination)
         {
             return;
+        }
+
+        if (rTask.ChargeCooldown > 0)
+        {
+            rTask.ChargeCooldown -= Time.deltaTime;
+            return;
+        }
+
+        float perMinute = rTask.Station.Data.PowerValues.PerMinute;
+        float perSecond = perMinute / 60;
+        Power ++;
+        rTask.ChargeCooldown = 1f / perSecond;
+
+        if (Power >= _mergeData.RobotValues.MaxCharge)
+        {
+            Power = _mergeData.RobotValues.MaxCharge;
+            _currentTask.CleanUp(this);
+            _currentTask = null;
         }
     }
 
