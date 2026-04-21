@@ -1,6 +1,6 @@
 # Ludum Dare 59 - Signal
-itch: https://joe-shanahan.itch.io/robo-island
-ldjam: https://ldjam.com/events/ludum-dare/59/robo-island
+* itch: https://joe-shanahan.itch.io/robo-island
+* ldjam: https://ldjam.com/events/ludum-dare/59/robo-island
 
 ## TODO
 
