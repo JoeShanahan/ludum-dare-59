@@ -285,7 +285,7 @@ public class RobotBase : MonoBehaviour
                     continue;
                 }
 
-                if (best.Data.PowerValues.PerMinute < mo.Data.PowerValues.PerMinute)
+                if (best.Data.PowerValues.PerMinute > mo.Data.PowerValues.PerMinute)
                     continue;
 
                 if (d < closest)

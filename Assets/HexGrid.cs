@@ -284,7 +284,7 @@ public class HexGrid : MonoBehaviour
             return;
 
         List<MapHex> potentialHexes = new(GetAllFogTiles());
-        potentialHexes.OrderBy(h => Vector3.Distance(h.transform.position, sourceHex.transform.position));
+        potentialHexes = potentialHexes.OrderBy(h => Vector3.Distance(h.transform.position, sourceHex.transform.position)).ToList();
         potentialHexes.Remove(sourceHex);
 
         while (remainder > 0 && potentialHexes.Count > 0)

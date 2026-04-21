@@ -1,23 +1,17 @@
-# ludum-dare-59
-merge robots
+# Ludum Dare 59 - Signal
+itch: https://joe-shanahan.itch.io/robo-island
+ldjam: https://ldjam.com/events/ludum-dare/59/robo-island
 
-### TODO
+## TODO
 
 ### URGENT
-* The win condition! The radio tower!
-* Need more flowers!
-* somethign wrong with extra data particles
-* waiting for space task
-* picking best solar panel not best
-* wind turbine doesn't spin
-
-### PRETTY IMPORTANT
-* The void tile
-
-
+* Excess Data Particles often don't go to the closest locked hex 
+* Robots should have a task "waiting for free space" instead of abandoning all tasks
+* There should be a way to discard unwanted items
 
 ### Quality of Life
 * Controls on screen
+* Easier vision on robot state
 * Animation showing putting power into task
 * Mouse wheel to zoom
 * Move mouse to edge of screen to scroll
